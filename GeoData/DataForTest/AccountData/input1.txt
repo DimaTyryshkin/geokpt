@@ -1,0 +1,15 @@
+{
+    "metadata": {
+        "appVersion": "",
+        "writeLocalTime": ""
+    },
+    "lastOpenedFilePaths": [
+        "path1/path1",
+        "path2/path2"
+    ],
+    "appAnalytics": {
+        "userSegment": 0,
+        "successExportNumber": 0,
+        "sessionNumber": 0
+    }
+}

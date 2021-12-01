@@ -1,0 +1,60 @@
+{
+  "parcelsCount": 228,
+  "parcelTests": [
+    {
+      "cadastralNumber": "91:01:049001:22",
+      "area": "1400",
+      "address": "г. Севастополь, с. Широкое, ул. Микадзе, д. 2",
+      "contourCount": 0
+    },
+    {
+      "cadastralNumber": "91:01:049001:27",
+      "area": "755",
+      "address": "г. Севастополь, Балаклавский район, с. Широкое, ул. Булгакова, 13",
+      "contourCount": 1,
+      "contourTests": [
+        {
+          "contourIndex": 0,
+          "pointCount": 6,
+          "id": "-1"
+        }
+      ]
+    },
+    {
+      "cadastralNumber": "91:01:049001:50",
+      "area": "1043",
+      "address": "г. Севастополь, с. Широкое, ул. Булгакова, 75",
+      "contourCount": 2,
+      "contourTests": [
+        {
+          "contourIndex": 0,
+          "id": "1",
+          "pointCount": 7
+        },
+        {
+          "contourIndex": 1,
+          "id": "2",
+          "pointCount": 9
+        }
+      ]
+    },
+    {
+      "cadastralNumber": "91:01:000000:490",
+      "area": "10153",
+      "address": "Российская Федерация, г. Севастополь",
+      "contourCount": 24,
+      "contourTests": [
+        {
+          "contourIndex": 0,
+          "id": "16",
+          "pointCount": 5
+        },
+        {
+          "contourIndex": 1,
+          "id": "5",
+          "pointCount": 5
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,127 @@
+<?xml-stylesheet type="text/xsl" href="https://portal.rosreestr.ru/xsl/EGRP/Reestr_Extract_Big/ZU/07/Common.xsl"?>
+<KVZU xmlns="urn://x-artefacts-rosreestr-ru/outgoing/kvzu/7.0.1" xmlns:smev="urn://x-artefacts-smev-gov-ru/supplementary/commons/1.0.1" xmlns:num="urn://x-artefacts-rosreestr-ru/commons/complex-types/numbers/1.0" xmlns:adrs="urn://x-artefacts-rosreestr-ru/commons/complex-types/address-output/4.0.1" xmlns:spa="urn://x-artefacts-rosreestr-ru/commons/complex-types/entity-spatial/5.0.1" xmlns:cer="urn://x-artefacts-rosreestr-ru/commons/complex-types/certification-doc/1.0" xmlns:doc="urn://x-artefacts-rosreestr-ru/commons/complex-types/document-output/4.0.1" xmlns:nobj="urn://x-artefacts-rosreestr-ru/commons/complex-types/natural-objects-output/1.0.1">
+  <Parcels>
+    <Parcel CadastralNumber="70:16:0403001:52" State="01" DateCreated="2005-11-24" DateCreatedDoc="2000-07-09">
+      <CadastralBlock>70:16:0403001</CadastralBlock>
+      <Name>01</Name>
+      <Area>
+        <Area>2107</Area>
+        <Unit>055</Unit>
+      </Area>
+      <Location>
+        <inBounds>1</inBounds>
+        <Address>
+          <adrs:OKATO>69258000029</adrs:OKATO>
+          <adrs:KLADR>7001600003000</adrs:KLADR>
+          <adrs:Region>70</adrs:Region>
+          <adrs:District Name="Шегарский" Type="р-н" />
+          <adrs:Locality Name="Оськино" Type="д" />
+          <adrs:Note>Томская обл., р-н Шегарский, д. Оськино, б/о "Сосенки", уч. № 1-2</adrs:Note>
+        </Address>
+      </Location>
+      <Category>003002000000</Category>
+      <Utilization Utilization="142000000000" ByDoc="Для обслуживания базы отдыха" />
+      <EntitySpatial EntSys="ID0">
+        <spa:SpatialElement>
+          <spa:SpelementUnit TypeUnit="Точка" SuNmb="1">
+            <spa:Ordinate X="352780.63" Y="4275935.86" OrdNmb="1" />
+          </spa:SpelementUnit>
+          <spa:SpelementUnit TypeUnit="Точка" SuNmb="2">
+            <spa:Ordinate X="352773.73" Y="4275969.21" OrdNmb="1" />
+          </spa:SpelementUnit>
+          <spa:SpelementUnit TypeUnit="Точка" SuNmb="3">
+            <spa:Ordinate X="352769.67" Y="4275967.09" OrdNmb="1" />
+          </spa:SpelementUnit>
+          <spa:SpelementUnit TypeUnit="Точка" SuNmb="4">
+            <spa:Ordinate X="352752.58" Y="4275956.08" OrdNmb="1" />
+          </spa:SpelementUnit>
+          <spa:SpelementUnit TypeUnit="Точка" SuNmb="5">
+            <spa:Ordinate X="352719.24" Y="4275946.53" OrdNmb="1" />
+          </spa:SpelementUnit>
+          <spa:SpelementUnit TypeUnit="Точка" SuNmb="6">
+            <spa:Ordinate X="352716.21" Y="4275959" OrdNmb="1" />
+          </spa:SpelementUnit>
+          <spa:SpelementUnit TypeUnit="Точка" SuNmb="7">
+            <spa:Ordinate X="352695.64" Y="4275952.61" OrdNmb="1" />
+          </spa:SpelementUnit>
+          <spa:SpelementUnit TypeUnit="Точка" SuNmb="8">
+            <spa:Ordinate X="352707.2" Y="4275923.16" OrdNmb="1" />
+          </spa:SpelementUnit>
+          <spa:SpelementUnit TypeUnit="Точка" SuNmb="1">
+            <spa:Ordinate X="352780.63" Y="4275935.86" OrdNmb="1" />
+          </spa:SpelementUnit>
+        </spa:SpatialElement>
+      </EntitySpatial>
+      <CadastralCost Value="51558.29" Unit="383" />
+      <SpecialNote> Сведения о видах разрешенного использовании имеют статус «Актуальные незасвидетельствованные». Право (ограничение права, обременение объекта недвижимости) зарегистрировано на данный объект недвижимости с видами разрешенного использования отсутствует.</SpecialNote>
+    </Parcel>
+  </Parcels>
+  <CertificationDoc>
+    <cer:Organization>ФГИС ЕГРН</cer:Organization>
+    <cer:Date>2021-06-22</cer:Date>
+    <cer:Number>99/2021/400012996</cer:Number>
+  </CertificationDoc>
+  <CoordSystems>
+    <spa:CoordSystem Name="МСК 70, зона 4" CsId="ID0" />
+  </CoordSystems>
+  <eDocument CodeType="112" Version="07" Scope="GKN">
+    <Sender Kod="00.0.4.195" Name="ФГИС ЕГРН" Region="99" Date_Upload="2021-06-22" Appointment="Государственный регистратор" />
+    <Recipient Kod="00.0.4.111" Name="храмых юлия александровна" />
+  </eDocument>
+  <ReestrExtract>
+    <DeclarAttribute ID_KUVI="0" ExtractTypeCode="012000" ExtractTypeText="Выписка из Единого государственного реестра недвижимости об объекте недвижимости" ExtractNumber="99/2021/400012996" ExtractDate="22.06.2021" RequeryNumber="80-193666637" RequeryDate="21.06.2021" ExtractCount="1" NoticeCount="0" RefuseCount="0" Registrator="ФГИС ЕГРН">
+      <ReceivName>храмых юлия александровна</ReceivName>
+      <ReceivAdress>не указан</ReceivAdress>
+    </DeclarAttribute>
+    <ExtractObjectRight>
+      <HeadContent>
+        <ID_REC_KUVI>0</ID_REC_KUVI>
+        <Title>ФЕДЕРАЛЬНАЯ СЛУЖБА ГОСУДАРСТВЕННОЙ РЕГИСТРАЦИИ, КАДАСТРА И КАРТОГРАФИИ</Title>
+        <DeptName>ФГИС ЕГРН</DeptName>
+        <ExtractTitle>Выписка из Единого государственного реестра недвижимости об объекте недвижимости</ExtractTitle>
+        <Content>На основании запроса от 21.06.2021 г., поступившего на рассмотрение 22.06.2021 г., сообщаем, что согласно записям Единого государственного реестра недвижимости:</Content>
+      </HeadContent>
+      <ExtractObject>
+        <ObjectRight>
+          <Right RightNumber="1">
+            <Owner>
+              <ID_Subject>161860485270</ID_Subject>
+              <Person>
+                <Code_SP>007003000000</Code_SP>
+                <Content>Цареградский Сергей Викторович</Content>
+                <FIO>
+                  <Surname>Цареградский</Surname>
+                  <First>Сергей</First>
+                  <Patronymic>Викторович</Patronymic>
+                </FIO>
+              </Person>
+            </Owner>
+            <Registration>
+              <ID_Record>192937916770</ID_Record>
+              <RegNumber>70-01/16-12/2004-244</RegNumber>
+              <Type>001001000000</Type>
+              <Name>Собственность, № 70-01/16-12/2004-244 от 26.02.2004</Name>
+              <RegDate>26.02.2004</RegDate>
+            </Registration>
+            <NoEncumbrance>не зарегистрировано</NoEncumbrance>
+          </Right>
+          <NoShareHolding>не зарегистрировано</NoShareHolding>
+        </ObjectRight>
+        <RightAssert>данные отсутствуют</RightAssert>
+        <RightClaim>данные отсутствуют</RightClaim>
+        <RightAgainst>данные отсутствуют</RightAgainst>
+        <RightSteal>данные отсутствуют</RightSteal>
+        <WithoutThirdParty>данные отсутствуют</WithoutThirdParty>
+        <InabilityRegWithoutOwner></InabilityRegWithoutOwner>
+        <InabilityRegZU></InabilityRegZU>
+      </ExtractObject>
+      <InfoENK />
+      <InfoPIK />
+      <FootContent>
+        <Recipient>храмых юлия александровна</Recipient>
+        <ExtractDate>22.06.2021</ExtractDate>
+        <Content></Content>
+      </FootContent>
+    </ExtractObjectRight>
+  </ReestrExtract>
+</KVZU>

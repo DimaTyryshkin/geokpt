@@ -1,0 +1,54 @@
+{
+  "parcelsCount": 799,
+  "parcelTests": [
+    {
+      "cadastralNumber": "91:01:003008:1",
+      "area": "730",
+      "address": "г. Севастополь, Балаклавского района в границах землепользования СТ \"Энергетик-2\", участок №5",
+      "contourCount": 2
+    },
+    {
+      "cadastralNumber": "91:01:003008:1044",
+      "area": "270",
+      "address": "Российская Федерация, г. Севастополь, Балаклавский р-н, ЖСК \"Энергетик-2\", уч. 16, контур 2",
+      "contourCount": 1,
+      "contourTests": [
+        {
+          "contourIndex": 0,
+          "id": "-1",
+          "pointCount": 5
+        }
+      ]
+    },
+    {
+      "cadastralNumber": "91:01:003008:132",
+      "area": "1000",
+      "address": "г. Севастополь, ул. Предместная, 132",
+      "contourCount": 0
+    },
+    {
+      "cadastralNumber": "91:01:003008:143",
+      "area": "1000",
+      "address": "г. Севастополь, ул. Александра Земкова, 12-А",
+      "contourCount": 0
+    },
+    {
+      "cadastralNumber": "91:01:003008:144",
+      "area": "680",
+      "address": "г. Севастополь, Балаклавский район, в границах землепользования СТ \"Энергетик-2\", земельный участок № 2",
+      "contourCount": 2,
+      "contourTests": [
+        {
+          "contourIndex": 0,
+          "id": "1",
+          "pointCount": 8 
+        },
+        {
+          "contourIndex": 1,
+          "id": "2",
+          "pointCount": 10
+        }
+      ]
+    }
+  ]
+}

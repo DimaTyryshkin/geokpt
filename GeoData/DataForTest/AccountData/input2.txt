@@ -1,0 +1,6 @@
+{
+    "lastOpenedFilePaths": [
+            "path1/path1",
+            "path2/path2"
+        ]
+}

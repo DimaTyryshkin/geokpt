@@ -1,0 +1,15 @@
+{
+    "name": "Converters",
+    "references": [
+        "GUID:282a0bef0711f5d428f49b0176c86110"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

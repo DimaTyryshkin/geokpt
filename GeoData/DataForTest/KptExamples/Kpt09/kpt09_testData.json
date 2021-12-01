@@ -1,0 +1,18 @@
+{
+  "parcelsCount": 40,
+  "parcelTests": [
+    {
+      "cadastralNumber": "77:01:0003031:1",
+      "area": "19057",
+      "address": "г Москва, пл Комсомольская, вл 6, стр 1",
+      "contourCount": 1,
+      "contourTests": [
+        {
+          "contourIndex": 0,
+          "pointCount": 22,
+          "id": "-1"
+        }
+      ]
+    } 
+  ]
+}
