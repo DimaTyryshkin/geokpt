@@ -25,6 +25,9 @@ namespace Geo
 		
 		[SerializeField, IsntNull]
 		PopupsRoot popupsRoot;
+		
+		[SerializeField, IsntNull]
+		GameObject loadingPanel; 
 
 		[SerializeField, IsntNull]
 		AppMetrica yandexAppMetrica; 
@@ -39,6 +42,7 @@ namespace Geo
 
 		void Start()
 		{
+			loadingPanel.SetActive(true);
 			if(cleanRun)
 				PlayerPrefs.DeleteAll();
 			
@@ -54,12 +58,13 @@ namespace Geo
 		{
 			if (isFileSystemTest)
 			{
+				loadingPanel.SetActive(false);
 				fileSystemTest.Show();
 			}
 			else
 			{
 				Version appVersion = new Version(Application.version);
-				updateAppPresenter.skip += InitPresenters;
+				updateAppPresenter.skip += InitApp;
 
 				string url = remoteConfig.GooglePlayMarketUrl;
 
@@ -76,12 +81,12 @@ namespace Geo
 				}
 				else
 				{
-					InitPresenters();
+					InitApp();
 				}
 			}
 		}
 
-		void InitPresenters()
+		void InitApp()
 		{ 
 			yandexAppMetrica.Init();
 			popupsRoot.Init();
@@ -90,9 +95,23 @@ namespace Geo
 			var                storage      = new AccountDataStorage(playerPrefs);
 			AccountData        data         = storage.GetInst();
 			var                appAnalytics = new AppAnalytics(data.appAnalytics);
+			appAnalytics.StartApp();
 			
-			tutorialStarter.Init(storage, appAnalytics);
-			mainPresenter.Init(storage, appAnalytics);
+			IFileSystem fileSystem = new RealFileSystem();
+			var kptFilesCache = new FilesCache(fileSystem, Application.persistentDataPath);
+			
+			if (appAnalytics.SessionNumber == 1)
+			{
+				DefaultKptFiles defaultKptFiles = new DefaultKptFiles();
+				defaultKptFiles.CopyToCache(kptFilesCache);
+			}
+			 
+			tutorialStarter.Init(storage);
+			mainPresenter.Init(storage, appAnalytics, kptFilesCache);
+			
+			storage.Save();
+			loadingPanel.SetActive(false);
+			tutorialStarter.OnShowStartScreen();
 		}
 	}
 }

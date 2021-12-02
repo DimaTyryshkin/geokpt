@@ -33,27 +33,21 @@ namespace Geo
 		[SerializeField, IsntNull]
 		DocumentPresenter documentPresenter;
 		
-		[SerializeField, IsntNull]
-		TutorialsList tutorials;
-		 
 		FilesCache kptFilesCache;
 		AccountDataStorage storage;
 		IParcel selectedParcel;
 		AppAnalytics appAnalytics;
-		
-		public event UnityAction ShowStartScreen;
-		
-		
-		public void Init(AccountDataStorage storage, AppAnalytics appAnalytics)
+		  
+		public void Init(AccountDataStorage storage, AppAnalytics appAnalytics, FilesCache filesCache)
 		{
 			Assert.IsNotNull(storage);
 			Assert.IsNotNull(appAnalytics);
+			Assert.IsNotNull(filesCache);
 			 
 			
-			this.storage = storage;
+			this.storage      = storage;
 			this.appAnalytics = appAnalytics;
-			RealFileSystem fileSystem = new RealFileSystem();
-			kptFilesCache = new FilesCache(fileSystem, Application.persistentDataPath);
+			kptFilesCache     = filesCache;
 
 			//string[] fileExtensions = new[] {"xml", "zip"}.Select(NativeFilePicker.ConvertExtensionToFileType).ToArray();
 			//NativeFileBrowser fileBrowser = new NativeFileBrowser(fileExtensions);
@@ -85,22 +79,7 @@ namespace Geo
 			
 			navigationMenu.SetDocumentInteractable(false);
 			
-			appAnalytics.StartApp();
-			
-			// ---
-			this.storage.Save();
-
-			if (this.appAnalytics.SessionNumber == 1)
-			{
-				DefaultKptFiles defaultKptFiles = new DefaultKptFiles();
-				defaultKptFiles.CopyToCache(kptFilesCache);
-			}
-
-			ShowRecent();
-			
-			//---tutorials
-			if (this.appAnalytics.SessionNumber == 1)
-				StartCoroutine(tutorials.HelloTutorial());
+			ShowRecent(); 
 		}
 		
 		void TryOpenFileFromPicker(string filePath)
@@ -118,6 +97,7 @@ namespace Geo
 			
 			documentPresenter.ClearSuccessLoadEvent();
 			kptFilesCache.CacheFile(filePath);  
+			navigationMenu.SetDocumentInteractable(documentPresenter.CanWakeup);
 		}
 		
 		void TryOpenFileFromRecent(string filePath)
@@ -133,6 +113,7 @@ namespace Geo
 		{ 
 			appAnalytics.SuccessLoadFile(filePath);
 			documentPresenter.ClearSuccessLoadEvent();
+			navigationMenu.SetDocumentInteractable(documentPresenter.CanWakeup);
 		}
 		
 		void OnFileLoadFail(Exception e, string filePath)
@@ -167,7 +148,6 @@ namespace Geo
 			
 			documentPresenter.Show(path);
 			navigationMenu.Draw(NavigationMenu.State.Document);
-			navigationMenu.SetDocumentInteractable(documentPresenter.CanWakeup);
 		}
 
 		void ShowSettings()

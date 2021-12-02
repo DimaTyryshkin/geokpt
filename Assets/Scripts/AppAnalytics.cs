@@ -15,7 +15,7 @@ namespace Geo
 		AppAnalyticsDb data;
 
 		bool enable;
-		bool log = true;
+		bool log = false;
 		
 		float timeOpenFilePicker;
 

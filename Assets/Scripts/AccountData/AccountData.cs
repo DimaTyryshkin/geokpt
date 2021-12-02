@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Geo.Data.AnalyticsDb;
+using UnityEngine;
 
 namespace Geo.Data
 {
@@ -14,9 +15,9 @@ namespace Geo.Data
 
 			public void FillData()
 			{
-				appVersion = appVersion;
+				appVersion = Application.version;
 				writeLocalTime = DateTime.Now.ToString("G");
-			}
+			} 
 		}
 
 		

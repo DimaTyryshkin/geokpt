@@ -22,6 +22,9 @@ namespace Geo.Tutorials
 		DocumentPopup documentPopup;
 
 		[SerializeField, IsntNull]
+		DocumentPresenter documentPresenter;
+
+		[SerializeField, IsntNull]
 		TutorialGui tutorialGui;
 
 		[SerializeField, IsntNull]
@@ -30,20 +33,19 @@ namespace Geo.Tutorials
 		[SerializeField, IsntNull]
 		TutorialsList tutorialsList;
 		
-		AppAnalytics       appAnalytics;
 		AccountDataStorage storage;
 
-		public void Init(AccountDataStorage storage, AppAnalytics appAnalytics)
+		public void Init(AccountDataStorage storage)
 		{
-			Assert.IsNotNull(storage);
-			Assert.IsNotNull(appAnalytics);
+			Assert.IsNotNull(storage); 
 			this.storage      = storage;
-			this.appAnalytics = appAnalytics;
-			
-			mainPresenter.ShowStartScreen += OnShowStartScreen;
-			documentPopup.successLoad     += OnDocumentPopupSuccessLoad;
-			popupsRoot.Opened             += OnPopupOpened;
+
+			popupsRoot.Opened               += OnPopupOpened;
+			documentPopup.successLoad       += OnDocumentPopupSuccessLoad;
+			documentPresenter.successExport += OnSuccessExport;
+			documentPresenter.wakeUp        += StartDocumentPopupTutorial;
 		}
+ 
 
 		void OnPopupOpened(Popup p)
 		{
@@ -65,20 +67,37 @@ namespace Geo.Tutorials
  
 		void OnDocumentPopupSuccessLoad(string _)
 		{
-			if (documentPopup.ParcelsCount > 0)
-				TryCompleteTutorial(tutorialsList.DocumentPopupTutorial(documentPopup), "DocumentPopupTutorial");
+			StartDocumentPopupTutorial();
 		}
 
-		void OnShowStartScreen()
+		public void OnShowStartScreen()
 		{
 			TryCompleteTutorial(tutorialsList.HelloTutorial(), "HelloTutorial");
 		}
 
+		void StartDocumentPopupTutorial()
+		{
+			if (documentPopup.ParcelsCount > 0)
+				TryCompleteTutorial(tutorialsList.DocumentPopupTutorial(documentPopup), "DocumentPopupTutorial");
+		}
+		
+		void OnSuccessExport()
+		{
+			TryCompleteTutorial(tutorialsList.SuccessExportTutorial(), "SuccessExport");
+		}
+ 
 		void TryCompleteTutorial(IEnumerator tutorial, string tutorialId)
 		{
 			List<string> completedTutorialsId = storage.GetInst().completedTutorialsId;
 			if (!completedTutorialsId.Contains(tutorialId))
-				StartCoroutine(RunWithCallBack(tutorial, () => completedTutorialsId.Add(tutorialId)));
+				StartCoroutine(RunWithCallBack(tutorial, () => OnTutorialComplete(tutorialId)));
+		}
+
+		void OnTutorialComplete(string tutorialId)
+		{
+			List<string> completedTutorialsId = storage.GetInst().completedTutorialsId;
+			completedTutorialsId.Add(tutorialId);
+			storage.Save();
 		}
 
 		IEnumerator RunWithCallBack(IEnumerator tutorial, UnityAction callBack)

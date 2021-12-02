@@ -70,7 +70,6 @@ namespace Game.UnityServices.RemoteConfig
         string GetString(string key)
         {
             string value = RemoteSettings.GetString(key);
-            Debug.Log($"{key}='{value}'");
             return value;
         }
     }

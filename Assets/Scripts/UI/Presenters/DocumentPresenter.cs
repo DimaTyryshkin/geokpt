@@ -36,6 +36,7 @@ namespace Geo
 
 		public event UnityAction cancel;
 		public event UnityAction<string> successLoad;
+		public event UnityAction wakeUp;
 		
 		public event UnityAction successExport;
 		public event UnityAction<Exception,string> exceptionOnLoading;
@@ -64,6 +65,7 @@ namespace Geo
 
 			documentPopup.successLoad += (f) =>
 			{
+				CanWakeup = true;
 				successLoad?.Invoke(f);
 			};
 			
@@ -113,7 +115,6 @@ namespace Geo
 			
 			this.filePath = filePath; 
 			selectedParcel  = null;
-			CanWakeup = true;
 			root.SetActive(true);
 			
 			documentPopup.Show(filePath);
@@ -171,6 +172,8 @@ namespace Geo
 
 			if (saveParcelDataPopup.IsVisible)
 				saveParcelDataPopup.ShowAndRedraw(); //перерисовываем окно, так как возможно изменились настройки формата вывода
+			
+			wakeUp?.Invoke();
 		}
 		
 		/// <summary>

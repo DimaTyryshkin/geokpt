@@ -3,6 +3,7 @@ using System.Collections;
 using Geo.Tutorials;
 using SiberianWellness.NotNullValidation;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Game.ScenarioSystem.GuiHighlight
@@ -39,7 +40,7 @@ namespace Game.ScenarioSystem.GuiHighlight
         
         [Header("Fade")]
         [SerializeField, IsntNull]
-        CanvasGroup canvasGroup;
+        CanvasGroup elementsCanvasGroup;
         
         [SerializeField]
         float fadeSpeed;
@@ -69,6 +70,9 @@ namespace Game.ScenarioSystem.GuiHighlight
         [Header("HideContent")]
         [SerializeField, IsntNull]
         GameObject hideContentPanel;
+        
+        [SerializeField, IsntNull]
+        CanvasGroup hideContentPanelCanvas;
         
         Coroutine fadeCoroutine;
         
@@ -128,9 +132,17 @@ namespace Game.ScenarioSystem.GuiHighlight
             ShowFrames(rectTransform, defaultDarkPadding);
         }
    
-        public void HideContent()
+        public void HideContentImmediate()
         {
+            hideContentPanelCanvas.alpha = 1;
             hideContentPanel.SetActive(true);
+        }
+
+        public IEnumerator HideContentAlpha(float from, float to)
+        {
+            hideContentPanelCanvas.alpha = from;  
+            hideContentPanel.SetActive(true);
+            yield return Fade(to, hideContentPanelCanvas);
         }
 
         public void ShowFrames(RectTransform rectTransform, float padding)
@@ -210,21 +222,18 @@ namespace Game.ScenarioSystem.GuiHighlight
             arrow.Hide();
             blockAllPanel.SetActive(false);
             anyClickButton.gameObject.SetActive(false);
+            
+            hideContentPanelCanvas.alpha = 1;
+            elementsCanvasGroup.alpha            = 1;
         }
 
         public IEnumerator SetAlpha(float from, float to)
         {
-            SetAlphaImmediate(from);
-             
-            yield return Fade(to);
-        }
-
-        public void SetAlphaImmediate(float alpha)
-        {
-            canvasGroup.alpha = alpha;
+            elementsCanvasGroup.alpha = from;  
+            yield return Fade(to, elementsCanvasGroup);
         }
          
-        IEnumerator Fade(float to)
+        IEnumerator Fade(float to, CanvasGroup canvasGroup)
         {
             while (!Mathf.Approximately(canvasGroup.alpha, to))
             {
