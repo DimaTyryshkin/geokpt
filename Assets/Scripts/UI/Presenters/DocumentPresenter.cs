@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Geo.Data;
 using Geo.KptData;
 using Geo.OsIntegration;
 using Geo.UI;
@@ -27,11 +28,12 @@ namespace Geo
 		[SerializeField, IsntNull]
 		OverlayPanel overlayPanel;
 
-		string filePath;
-		IParcel selectedParcel;
-		NativeFileBrowser fileBrowser;
-		AppAnalytics appAnalytics;
-		
+		string                                       filePath;
+		IParcel                                      selectedParcel;
+		NativeFileBrowser                            fileBrowser;
+		AppAnalytics                                 appAnalytics;
+		AccountData.ContourToTxtConverterPreferences preferences;
+
 		public bool CanWakeup { get; private set; }
 
 		public event UnityAction cancel;
@@ -46,11 +48,13 @@ namespace Geo
 			successLoad = null;
 		}
 
-		public void Init(NativeFileBrowser fileBrowser, AppAnalytics appAnalytics)
+		public void Init(NativeFileBrowser fileBrowser, AppAnalytics appAnalytics, AccountData.ContourToTxtConverterPreferences preferences)
 		{
 			Assert.IsNotNull(fileBrowser);
 			Assert.IsNotNull(appAnalytics);
-			this.fileBrowser = fileBrowser;
+			Assert.IsNotNull(preferences);
+			this.fileBrowser  = fileBrowser;
+			this.preferences  = preferences;
 			this.appAnalytics = appAnalytics;
 
 			documentPopup.cancel += () =>
@@ -122,7 +126,7 @@ namespace Geo
 
 		void TrySave(string filePath)
 		{
-			appAnalytics.TryExportContour();
+			appAnalytics.TryExportContour(preferences);
 #if UNITY_EDITOR
 			SaveFile(filePath);
 #else
@@ -188,10 +192,10 @@ namespace Geo
 		{
 			cancel?.Invoke();
 		}
- 
+
 		void ShowSaveParcelDataPopup(IParcel p, IContour c)
-		{ 
-			saveParcelDataPopup.Show(p, c, Application.temporaryCachePath);
+		{
+			saveParcelDataPopup.Show(p, c, preferences, Application.temporaryCachePath);
 		}
 	}
 }

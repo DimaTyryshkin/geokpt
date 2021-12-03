@@ -31,11 +31,12 @@ namespace Geo.UI
 		Button baskButton;
 
 		public Button SaveToFileButton => saveToFileButton;
-		
-		ContourToTxtConverterWrapper converter;
-		IContour contour;
-		IParcel parcel;
-		string folderToSaveFile;
+
+		AccountData.ContourToTxtConverterPreferences preferences;
+		ContourToTxtConverterWrapper                 converter;
+		IContour                                     contour;
+		IParcel                                      parcel;
+		string                                       folderToSaveFile;
 
 		public int PointCount => contour.GetPoints().Count;
 		
@@ -54,14 +55,16 @@ namespace Geo.UI
 				OnClickCancel();
 		}
 		
-		public void Show(IParcel parcel, IContour contour, string folderToSaveFile)
+		public void Show(IParcel parcel, IContour contour, AccountData.ContourToTxtConverterPreferences preferences ,  string folderToSaveFile)
 		{
 			Assert.IsTrue(new DirectoryInfo(folderToSaveFile).Exists);
 			Assert.IsNotNull(parcel);
 			Assert.IsNotNull(contour);
+			Assert.IsNotNull(preferences);
 			
-			this.parcel  = parcel;
-			this.contour = contour;
+			this.parcel           = parcel;
+			this.contour          = contour;
+			this.preferences      = preferences;
 			this.folderToSaveFile = folderToSaveFile;
 			
 			ShowAndRedraw(); 
@@ -69,7 +72,7 @@ namespace Geo.UI
 
 		public void ShowAndRedraw()
 		{ 
-			converter = new ContourToTxtConverterWrapper();
+			converter                = new ContourToTxtConverterWrapper(preferences);
 			cadastralNumberText.text = parcel.GetCadastralNumber();
 			areaText.text            = parcel.GetArea();
 			addressText.text         = parcel.GetReadableAddress();

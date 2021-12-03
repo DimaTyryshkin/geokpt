@@ -8,50 +8,69 @@ namespace Geo.KptData.Converters
 {
 	public class ContourToTxtConverter
 	{  
-		public static readonly string[] separators = new string[] {",", " ", ", "};
 		public static readonly string[] decimals   = new string[] {".", ","};
 
-		IContour contour;
-		IParcel parcel;
 
-		public ContourToTxtConverter(IContour contour, IParcel parcel)
+		public static string GetDecimalSeparatorSafe(int index)
 		{
-			Assert.IsNotNull(contour);
-			Assert.IsNotNull(parcel);
-			this.contour = contour;
-			this.parcel = parcel;
+			if (index < 0 || index >= decimals.Length)
+				return decimals[0];
+
+			return decimals[index];
 		}
 
-		public string ConvertToString(int separatorIndex, int decimalIndex)
+		public ContourToTxtConverter()
 		{
-			string separator   = separators[separatorIndex];
-			string decimalChar = decimals[decimalIndex];
+		}
 
-			var points = contour.GetPoints();
+		public string ConvertToFile(string folderFullName, IContour contour, IParcel parcel, int decimalIndex, string format)
+		{
+			string shotName = CadastralNumberToFileName(parcel.GetCadastralNumber());
+			string fullName = Path.Combine(folderFullName, shotName);
+
+			//TODO проверить что папка не удалена
+			File.WriteAllText(fullName, ConvertToString(contour, parcel, decimalIndex, format));
+			return fullName;
+		}
+
+		public string ConvertToString(IContour contour, IParcel parcel, int decimalIndex, string format)
+		{
+			Assert.IsFalse(string.IsNullOrWhiteSpace(format));
+
+			string      decimalChar = GetDecimalSeparatorSafe(decimalIndex);
+			List<Point> points      = contour.GetPoints();
 
 			string resilt = "";
 			for (int i = 0; i < points.Count; i++)
-			{
-				var    p = points[i];
-				string x = ReplaceDecimal(p.x, decimalChar);
-				string y = ReplaceDecimal(p.y, decimalChar);
-				resilt += $"pt{i}{separator}{x}{separator}{y}" + Environment.NewLine;
-			}
+				resilt += PointToString(i, points[i], decimalChar, format) + Environment.NewLine;
 
 			return resilt;
 		}
 
-		public string ConvertToFile(string folderFullName, int separatorIndex, int decimalIndex)
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="index"></param>
+		/// <param name="p"></param>
+		/// <param name="decimalSeparator"></param>
+		/// <param name="format"> Формат вывода, например: 'pt{i}, {x}, {y}, 0'</param>
+		/// <returns></returns>
+		public string PointToString(int index, Point p, string decimalSeparator, string format)
 		{
-			string shotName = CadastralNumberToFileName(parcel.GetCadastralNumber()) ;
-			string fullName = Path.Combine(folderFullName, shotName);
+			int    n = index + 1;
+			string x = ReplaceDecimal(p.x, decimalSeparator);
+			string y = ReplaceDecimal(p.y, decimalSeparator);
 
-			//TODO проверить что папка не удалена
-			File.WriteAllText(fullName, ConvertToString( separatorIndex, decimalIndex));
-			return fullName;
+			string result = format;
+			result = result.Replace("{i}", index.ToString());
+			result = result.Replace("{n}", (n).ToString());
+			result = result.Replace("{x}", x);
+			result = result.Replace("{y}", y);
+
+			return result;
 		}
 
-		string ReplaceDecimal(string origin, string newDecimal)
+		static string ReplaceDecimal(string origin, string newDecimal)
 		{
 			if (origin.Contains(","))
 				return origin.Replace(",", newDecimal);

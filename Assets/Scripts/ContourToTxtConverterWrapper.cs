@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Geo.Data;
+﻿using Geo.Data;
 using Geo.KptData;
 using Geo.KptData.Converters;
-using SiberianWellness.Common;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -11,46 +8,28 @@ namespace Geo
 {
 	public class ContourToTxtConverterWrapper
 	{
-		public class SeparatorData
+		readonly AccountData.ContourToTxtConverterPreferences preferences;
+		
+		public int PreferredDecimalSeparatorIndex
 		{
-			int               separatorIndex;
-			readonly string[] separators;
-			readonly string   separatorBsdKey;
-
-			public int Count => separators.Length;
-			
-			public int Index
+			get => preferences.decimalSeparator;
+			set
 			{
-				get => separatorIndex;
-				set
+				if (value >= ContourToTxtConverter.decimals.Length || value < 0)
 				{
-					separatorIndex = value;
-					separatorIndex = Mathf.Min(separatorIndex, separators.Length - 1);
-					PlayerPrefs.SetInt(separatorBsdKey, separatorIndex);
+					preferences.decimalSeparator = 0;
+				}
+				else
+				{
+					preferences.decimalSeparator = value;
 				}
 			}
-
-			public string Separator => separators[separatorIndex];
-
-			public SeparatorData(string separatorBsdKey, string[] separators)
-			{
-				AssertWrapper.IsAllNotNull(separators);
-				Assert.IsFalse(string.IsNullOrWhiteSpace(separatorBsdKey));
-
-				this.separators      = separators;
-				this.separatorBsdKey = separatorBsdKey;
-
-				separatorIndex = PlayerPrefs.GetInt(separatorBsdKey, 0);
-			}
 		}
- 
-		public readonly SeparatorData separator;
-		public readonly SeparatorData decimals;
 
-		public ContourToTxtConverterWrapper()
+		public ContourToTxtConverterWrapper(AccountData.ContourToTxtConverterPreferences preferences)
 		{
-			separator = new SeparatorData("ContourToTxtConverterWrapper.separatorIndex", ContourToTxtConverter.separators);
-			decimals  = new SeparatorData("ContourToTxtConverterWrapper.decimalIndex", ContourToTxtConverter.decimals);
+			this.preferences               = preferences;
+			PreferredDecimalSeparatorIndex = preferences.decimalSeparator;//вызываем валидацю
 		}
 
 		public string ConvertToString(IContour contour, IParcel parcel)
@@ -58,8 +37,8 @@ namespace Geo
 			Assert.IsNotNull(contour);
 			Assert.IsNotNull(parcel);
 			 
-			var converter = new ContourToTxtConverter(contour, parcel); 
-			return converter.ConvertToString(separator.Index, decimals.Index);
+			var converter = new ContourToTxtConverter(); 
+			return converter.ConvertToString(contour, parcel, PreferredDecimalSeparatorIndex, preferences.format);
 		}
 
 		public string ConvertToFile(string folderToSaveFile, IContour contour, IParcel parcel)
@@ -67,8 +46,8 @@ namespace Geo
 			Assert.IsNotNull(contour);
 			Assert.IsNotNull(parcel);
 			
-			var converter = new ContourToTxtConverter(contour, parcel); 
-			return converter.ConvertToFile(folderToSaveFile, separator.Index, decimals.Index);
+			var converter = new ContourToTxtConverter(); 
+			return converter.ConvertToFile(folderToSaveFile, contour, parcel, PreferredDecimalSeparatorIndex, preferences.format);
 		}
 	}
 }

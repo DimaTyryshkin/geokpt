@@ -42,7 +42,9 @@ namespace Geo.Tutorials
 			tutorialGui.ShowText("Ты можешь сам скачать другие файлы КПТ на телефон и в любой момент получить координаты нужного участка");
 			yield return tutorialGui.WaitForClick();
 			
+			facade.SetEnableInput(false);
 			yield return tutorialGui.SetAlpha(1, 0);
+			facade.SetEnableInput(true);
 			tutorialGui.Hide();
 		}
 
@@ -70,7 +72,9 @@ namespace Geo.Tutorials
 			yield return tutorialGui.SetAlpha(0, 1);
 			yield return tutorialGui.WaitForClick();
 
+			facade.SetEnableInput(false);
 			yield return tutorialGui.SetAlpha(1, 0);
+			facade.SetEnableInput(true);
 			tutorialGui.Hide();
 		}
 
@@ -78,11 +82,15 @@ namespace Geo.Tutorials
 		{
 			facade.SetEnableInput(false);
 			tutorialGui.ShowText("Настрой формат txt файла под свой GPS приемник");
+			yield return tutorialGui.WaitForClick();
+			tutorialGui.ShowText("Настрой формат txt файла под свой GPS приемник");
 			yield return tutorialGui.SetAlpha(0, 1);
 			facade.SetEnableInput(true);
 			yield return tutorialGui.WaitForClick();
 			
+			facade.SetEnableInput(false);
 			yield return tutorialGui.SetAlpha(1, 0);
+			facade.SetEnableInput(true);
 			tutorialGui.Hide();
 		}
 
@@ -109,7 +117,9 @@ namespace Geo.Tutorials
 			yield return tutorialGui.SetAlpha(0, 1);
 			yield return tutorialGui.WaitForClick();
 			
+			facade.SetEnableInput(false);
 			yield return tutorialGui.SetAlpha(1, 0);
+			facade.SetEnableInput(true);
 			tutorialGui.Hide();
 		}
 
@@ -122,7 +132,9 @@ namespace Geo.Tutorials
 			facade.SetEnableInput(true);
 			yield return tutorialGui.WaitForClick();
 			
+			facade.SetEnableInput(false);
 			yield return tutorialGui.SetAlpha(1, 0);
+			facade.SetEnableInput(true);
 			tutorialGui.Hide();
 		}
 	}

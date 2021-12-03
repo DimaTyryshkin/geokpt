@@ -6,7 +6,31 @@ using UnityEngine;
 namespace Geo.Data
 {
 	public class AccountData
-	{
+	{ 
+		/// <summary>
+		/// Никогда нельзя изменять имя переменной, ее тип или удалять ее!
+		/// </summary>
+		public Metadata metadata = new Metadata();
+
+		public List<string>                     completedTutorialsId             = new List<string>();
+		public ContourToTxtConverterPreferences contourToTxtConverterPreferences = new ContourToTxtConverterPreferences();
+		public AppAnalyticsDb                   appAnalytics                     = new AppAnalyticsDb();
+
+		public void Validate()
+		{
+			if (metadata == null)
+				metadata = new Metadata();
+			
+			if (completedTutorialsId == null)
+				completedTutorialsId = new List<string>();
+
+			if (appAnalytics == null)
+				appAnalytics = new AppAnalyticsDb();
+
+			if (contourToTxtConverterPreferences == null)
+				contourToTxtConverterPreferences = new ContourToTxtConverterPreferences();
+		}
+		
 		[Serializable]
 		public class Metadata
 		{
@@ -15,35 +39,24 @@ namespace Geo.Data
 
 			public void FillData()
 			{
-				appVersion = Application.version;
+				appVersion     = Application.version;
 				writeLocalTime = DateTime.Now.ToString("G");
 			} 
 		}
-
 		
-
-		/// <summary>
-		/// Никогда нельзя изменять имя переменной, ее тип или удалять ее!
-		/// </summary>
-		public Metadata metadata = new Metadata();
-
-		public List<string>   lastOpenedFilePaths  = new List<string>();
-		public List<string>   completedTutorialsId = new List<string>();
-		public AppAnalyticsDb appAnalytics         = new AppAnalyticsDb();
-
-		public void Validate()
+		[Serializable]
+		public class ContourToTxtConverterPreferences
 		{
-			if (metadata == null)
-				metadata = new Metadata();
-			
-			if (lastOpenedFilePaths == null)
-				lastOpenedFilePaths = new List<string>();
-			
-			if (completedTutorialsId == null)
-				completedTutorialsId = new List<string>();
+			public int    decimalSeparator;
+			public string format;
+			public List<string> userFormats;
 
-			if (appAnalytics == null)
-				appAnalytics = new AppAnalyticsDb();
+			public ContourToTxtConverterPreferences()
+			{
+				decimalSeparator = 0;
+				format           = "pt{i}, {x}, {y}";
+				userFormats      = new List<string>();
+			}
 		}
 	}
 }

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO; 
+using System.IO;
+using Geo.Data;
 using Geo.Data.AnalyticsDb;
+using Geo.KptData.Converters;
 using SiberianWellness.Common;
 using UnityEngine;
 using UnityEngine.Analytics;
@@ -110,16 +112,14 @@ namespace Geo
 			);
 		}
 
-		public void TryExportContour()
-		{
-			ContourToTxtConverterWrapper converter            = new ContourToTxtConverterWrapper();
-			string                       lastDecimalSeparator = converter.decimals.Separator.Replace(" ", "_");
-			string                       lastSeparator        = converter.separator.Separator.Replace(" ", "_");
+		public void TryExportContour(AccountData.ContourToTxtConverterPreferences preferences)
+		{	
+			string lastDecimalSeparator = ContourToTxtConverter.GetDecimalSeparatorSafe(preferences.decimalSeparator); 
 
 			Step("try_export_contour", new Dictionary<string, object>()
 			{
 				{"decimal_separator", $"'{lastDecimalSeparator}'"},
-				{"separator", $"'{lastSeparator}'"},
+				{"format", $"'{preferences.format}'"},
 				{"success_export_count", data.successExportNumber},
 				{"user_segment", data.userSegment.ToString()}
 			});

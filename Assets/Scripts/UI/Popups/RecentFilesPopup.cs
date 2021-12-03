@@ -24,7 +24,6 @@ namespace Geo
 		[SerializeField, IsntNull]
 		Button openNewButton;
   
-		IStorage storage;
 		FilesCache kptFilesCache;
 
 		[NonSerialized]
@@ -50,12 +49,9 @@ namespace Geo
 			clickNewFile?.Invoke();
 		}
 
-		public void Show(FilesCache kptFilesCache, IStorage storage)
+		public void Show(FilesCache kptFilesCache)
 		{
 			Assert.IsNotNull(kptFilesCache);
-			Assert.IsNotNull(storage);
-
-			this.storage = storage;
 			this.kptFilesCache = kptFilesCache;
 
 			ShowAndRedraw();

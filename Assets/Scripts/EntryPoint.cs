@@ -1,7 +1,6 @@
 ﻿using System;
 using UnityEngine;
 
-using Game.UnityServices.RemoteConfig;
 using Geo.Data;
 using Geo.Tutorials;
 using Geo.UI;
@@ -107,7 +106,7 @@ namespace Geo
 			}
 			 
 			tutorialStarter.Init(storage);
-			mainPresenter.Init(storage, appAnalytics, kptFilesCache);
+			mainPresenter.Init(storage, appAnalytics, kptFilesCache, remoteConfig.Config);
 			
 			storage.Save();
 			loadingPanel.SetActive(false);

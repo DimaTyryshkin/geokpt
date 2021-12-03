@@ -6,12 +6,8 @@ using SiberianWellness.NotNullValidation;
 using Geo.Data; 
 using Geo.KptData;
 using Geo.OsIntegration;
-using Geo.Tutorials;
 using Geo.UI;
-using UnityEngine.Accessibility;
 using UnityEngine.Assertions;
-using UnityEngine.Events;
-using UnityEngine.Serialization;
 using Debug = UnityEngine.Debug;
 
 namespace Geo
@@ -38,13 +34,13 @@ namespace Geo
 		IParcel selectedParcel;
 		AppAnalytics appAnalytics;
 		  
-		public void Init(AccountDataStorage storage, AppAnalytics appAnalytics, FilesCache filesCache)
+		public void Init(AccountDataStorage storage, AppAnalytics appAnalytics, FilesCache filesCache, GeoConfig config)
 		{
 			Assert.IsNotNull(storage);
 			Assert.IsNotNull(appAnalytics);
 			Assert.IsNotNull(filesCache);
+			Assert.IsNotNull(config);
 			 
-			
 			this.storage      = storage;
 			this.appAnalytics = appAnalytics;
 			kptFilesCache     = filesCache;
@@ -52,8 +48,10 @@ namespace Geo
 			//string[] fileExtensions = new[] {"xml", "zip"}.Select(NativeFilePicker.ConvertExtensionToFileType).ToArray();
 			//NativeFileBrowser fileBrowser = new NativeFileBrowser(fileExtensions);
 			NativeFileBrowser fileBrowser = new NativeFileBrowser(new []{"*/*"});
-			 
-			documentPresenter.Init(fileBrowser, appAnalytics);
+
+			AccountData.ContourToTxtConverterPreferences contourToTxtConverterPreferences = storage.GetInst().contourToTxtConverterPreferences;
+			documentPresenter.Init(fileBrowser, appAnalytics, contourToTxtConverterPreferences);
+			settingsPopup.Init(contourToTxtConverterPreferences, config.defaultContourToTxtFormats, storage);
 
 			navigationMenu.clickResent += ShowRecent;
 			navigationMenu.clickDocument += ShowDocument;
@@ -130,7 +128,7 @@ namespace Geo
 			navigationMenu.Draw(NavigationMenu.State.Resent);
 			
 			kptFilesCache.Load();
-			recentFilesPopup.Show(kptFilesCache, storage);
+			recentFilesPopup.Show(kptFilesCache);
 		}
 
 		void ShowDocument()

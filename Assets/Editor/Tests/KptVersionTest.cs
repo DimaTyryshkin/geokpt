@@ -177,14 +177,15 @@ namespace Tests
 			IParcel parcel = kptReader.FindParcelByCadastralNumber(CadastralNumber);
 			Assert.IsNotNull(parcel, CadastralNumber);
 
-			ContourToTxtConverter converter = new ContourToTxtConverter(parcel.GetContours()[0], parcel);
 
 			string referenceTxt = File.ReadAllText(referenceTxtDataFullName);
-			
-			//Испольузем вывод через 'запятые'. В качестве разделителя дробной части 'точка' 
-			Assert.AreEqual(referenceTxt, converter.ConvertToString(0, 0));
 
-			string fileName = converter.ConvertToFile(tempFolder, 0, 0);
+			string format = "pt{i},{x},{y}";
+			//В качестве разделителя дробной части 'точка' 
+			ContourToTxtConverter converter = new ContourToTxtConverter();
+			Assert.AreEqual(referenceTxt, converter.ConvertToString(parcel.GetContours()[0], parcel,0, format));
+
+			string fileName = converter.ConvertToFile(tempFolder,parcel.GetContours()[0], parcel,0, format);
 			string result   = File.ReadAllText(fileName);
 			Assert.AreEqual(referenceTxt, result);
 		}
