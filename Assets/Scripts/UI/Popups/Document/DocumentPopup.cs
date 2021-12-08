@@ -72,7 +72,6 @@ namespace Geo.UI
  
 		void OnInputValueChanged(string arg0)
 		{
-			var    t    = DateTime.Now;
 			elementCountLimit = defaultElementCountLimit;
 			
 			filteredParcels = parcelsCollection.FilterParcels(arg0);

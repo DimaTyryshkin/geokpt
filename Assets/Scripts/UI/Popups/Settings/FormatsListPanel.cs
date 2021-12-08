@@ -20,27 +20,13 @@ namespace Geo.UI
 
 		[SerializeField, IsntNull]
 		Transform togglesRoot;
-		
-		[SerializeField, IsntNull]
-		Button addButton;
-		
+		 
 		AccountData.ContourToTxtConverterPreferences preferences;
 		IStorage                                     storage;
 		string[]                                     defaultFormat;
 
 		public event UnityAction preferencesChanged;
-
-		void Start()
-		{
-			addButton.onClick.AddListener(OnClickAdd);
-		}
-
-		void OnClickAdd()
-		{
-			preferences.userFormats.Add("{i} {n} {x}");
-			Draw();
-		}
-
+  
 		public void InitAndDraw(AccountData.ContourToTxtConverterPreferences preferences, string[] defaultFormat, IStorage storage)
 		{
 			Assert.IsNotNull(preferences);
@@ -75,8 +61,7 @@ namespace Geo.UI
 			toggle.Draw(format, isCustomUserFormat);
 			toggle.toggle.isOn = isOnByDefault;
 			toggle.toggle.onValueChanged.AddListener(isOn => OnToggleChanged(isOn, format));
-		}
-
+		} 
 		void OnToggleChanged(bool isOn, string format)
 		{
 			if (isOn)
@@ -91,7 +76,6 @@ namespace Geo.UI
 			}
 			
 			Draw();
-		}
-
+		} 
 	}
 }

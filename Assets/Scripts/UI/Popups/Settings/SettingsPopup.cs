@@ -20,6 +20,9 @@ namespace Geo.UI
 
 		[SerializeField, IsntNull]
 		FormatsListPanel formatsListPanel;
+ 
+		[SerializeField, IsntNull]
+		Button addUserFormatButton;
 		
 		AccountData.ContourToTxtConverterPreferences preferences;
 		IStorage                                     storage;
@@ -27,11 +30,13 @@ namespace Geo.UI
 
 
 		public event UnityAction cancel;
+		public event UnityAction clickAddUserFormatButton;
 
 		void Start()
 		{
 			decimalSeparatorPanel.preferencesChanged += DrawPreview;
 			formatsListPanel.preferencesChanged      += DrawPreview;
+			addUserFormatButton.onClick.AddListener(clickAddUserFormatButton);
 		}
 
 		public void Init(AccountData.ContourToTxtConverterPreferences preferences, string[] defaultContourToTxtFormats, IStorage storage)

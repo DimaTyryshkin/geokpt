@@ -13,8 +13,11 @@ namespace Geo.UI
 
         public virtual void Close()
         {
-            Hide();
-            Closed?.Invoke();
+            if (IsVisible)
+            {
+                Hide();
+                Closed?.Invoke();
+            }
         }
 
         void Hide()
@@ -25,9 +28,12 @@ namespace Geo.UI
 
         public virtual void Show()
         {
-            gameObject.SetActive(true);
-            IsVisible = true;
-            Opened?.Invoke(this);
+            if (!IsVisible)
+            {
+                gameObject.SetActive(true);
+                IsVisible = true;
+                Opened?.Invoke(this);
+            }
         }
     }
 }

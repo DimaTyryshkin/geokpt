@@ -18,7 +18,7 @@ namespace Geo
 		RecentFilesPopup recentFilesPopup;
  
 		[SerializeField, IsntNull]
-		SettingsPopup settingsPopup;
+		PreferencesPresenter preferencesPresenter;
 		
 		[SerializeField, IsntNull]
 		OverlayPanel overlayPanel;
@@ -51,7 +51,7 @@ namespace Geo
 
 			AccountData.ContourToTxtConverterPreferences contourToTxtConverterPreferences = storage.GetInst().contourToTxtConverterPreferences;
 			documentPresenter.Init(fileBrowser, appAnalytics, contourToTxtConverterPreferences);
-			settingsPopup.Init(contourToTxtConverterPreferences, config.defaultContourToTxtFormats, storage);
+			preferencesPresenter.Init(contourToTxtConverterPreferences, config.defaultContourToTxtFormats, storage);
 
 			navigationMenu.clickResent += ShowRecent;
 			navigationMenu.clickDocument += ShowDocument;
@@ -69,7 +69,7 @@ namespace Geo
 				});
 			};
 
-			settingsPopup.cancel += ShowRecent;
+			//settingsPopup.cancel += ShowRecent;
 			documentPresenter.cancel += ShowRecent;
 			documentPresenter.successExport += storage.Save;
 			documentPresenter.exceptionOnLoading += OnFileLoadFail;
@@ -152,14 +152,14 @@ namespace Geo
 		{
 			HideAll();
 			
-			settingsPopup.Show();
+			preferencesPresenter.Show();
 			navigationMenu.Draw(NavigationMenu.State.Settings);
 		} 
 		
 		void HideAll()
 		{
 			recentFilesPopup.Close();
-			settingsPopup.Close();
+			preferencesPresenter.Close();
 			documentPresenter.Sleep();
 		}
 		
