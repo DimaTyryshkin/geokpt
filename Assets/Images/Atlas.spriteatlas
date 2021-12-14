@@ -36,10 +36,14 @@ SpriteAtlas:
   m_PackedSprites:
   - {fileID: 21300000, guid: dfb42dc33d650924ead9c66b15c5823a, type: 3}
   - {fileID: 21300000, guid: f15365088c242d2409ee0e8b02786f0a, type: 3}
+  - {fileID: 21300000, guid: c072de48d31ffda459c7376205aa787e, type: 3}
+  - {fileID: 21300000, guid: 061f25ede60fff84b9c43449eab649d6, type: 3}
   - {fileID: 2405038661599551444, guid: c4105faf6c44969439f3cd2db893d296, type: 3}
   m_PackedSpriteNamesToIndex:
   - bart
   - tutorialSprite
+  - handshake
+  - arrow
   - 776b034c-a670-478c-8458-d28148acba81 (1)_0
   m_Tag: Atlas
   m_IsVariant: 0
