@@ -10,6 +10,9 @@ namespace Game.ScenarioSystem.GuiHighlight
 {
     public class TutorialGui : MonoBehaviour
     {
+        [SerializeField, IsntNull]
+        TutorialFacade facade;
+    		
         [SerializeField]
         float defaultDarkPadding = 50;
  
@@ -49,14 +52,7 @@ namespace Game.ScenarioSystem.GuiHighlight
         [Header("AnyClick")]
         [SerializeField, IsntNull]
         Button anyClickButton;
-        
-        [Header("WaitForReady")]
-        [SerializeField, IsntNull]
-        Button waitForReadyButton;
-        
-        [SerializeField, IsntNull]
-        Text waitForReadyText;
-        
+         
         [Header("Image")]
         [SerializeField, IsntNull]
         Button imageButton;
@@ -81,27 +77,19 @@ namespace Game.ScenarioSystem.GuiHighlight
         {
             ShowArrow(rectTransform, orientation, defaultDarkPadding);
         }
-        
+
         public IEnumerator WaitForClick()
         {
+            var old = facade.EnableInput;
+            facade.EnableInput = true;
             anyClickButton.gameObject.SetActive(true);
             var waitForButton = new WaitForButtonClick(anyClickButton);
             yield return waitForButton;
-            
+
             anyClickButton.gameObject.SetActive(false);
+            facade.EnableInput = old;
         }
-        
-        public IEnumerator WaitForReady(string text)
-        {
-            Hide();
-            waitForReadyText.text = text;
-            waitForReadyButton.gameObject.SetActive(true);
-            RebuildLayout(waitForReadyButton.GetComponent<RectTransform>());
-            yield return SetAlpha(0,1);
-            var waitForButton = new WaitForButtonClick(waitForReadyButton);
-            yield return waitForButton; 
-        }
-        
+ 
         public IEnumerator ShowSprite(string text, Sprite sprite)
         {
             Hide();
@@ -213,8 +201,7 @@ namespace Game.ScenarioSystem.GuiHighlight
         public void Hide()
         {
             hideContentPanel.SetActive(false);
-            imageButton.gameObject.SetActive(false);
-            waitForReadyButton.gameObject.SetActive(false);
+            imageButton.gameObject.SetActive(false); 
             character.SetActive(false);
             textTransform.gameObject.SetActive(false);
             blockFrame.Hide();

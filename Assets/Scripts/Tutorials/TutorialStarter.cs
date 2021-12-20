@@ -51,7 +51,7 @@ namespace Geo.Tutorials
 		{
 			StopAllCoroutines();
 			tutorialGui.Hide();
-			tutorialFacade.SetEnableInput(true);
+			tutorialFacade.EnableInput = true;
 
 			if (p is SaveContourPopup saveContourPopup)
 			{
@@ -62,6 +62,11 @@ namespace Geo.Tutorials
 			if (p is SettingsPopup)
 			{
 				TryCompleteTutorial(tutorialsList.SettingsPopupTutorial(), "SettingsPopupTutorial");
+			}
+			
+			if (p is UserFormatPopup)
+			{
+				TryCompleteTutorial(tutorialsList.UserFormatTutorial(), "UserFormatTutorial");
 			}
 		}
  

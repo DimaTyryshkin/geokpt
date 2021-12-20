@@ -15,6 +15,15 @@ namespace Geo
 			Debug.Log(storage.GetRawSaveData());
 		}
 		
+		[MenuItem("Geo/Log GeoConfig")]
+		public static void LogGeoConfig()
+		{
+			string geoConfigText = JsonUtility.ToJson(new GeoConfig(), true);
+			Debug.Log(geoConfigText);
+		}
+		
+	
+		
 		[MenuItem("Geo/Delete Save")]
 		public static void DeleteSave()
 		{

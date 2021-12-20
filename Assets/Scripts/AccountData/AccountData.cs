@@ -54,7 +54,7 @@ namespace Geo.Data
 			public ContourToTxtConverterPreferences()
 			{
 				decimalSeparator = 0;
-				format           = "pt{i}, {x}, {y}";
+				format           = "pt(i), (x), (y)";
 				userFormats      = new List<string>();
 			}
 		}

@@ -62,10 +62,10 @@ namespace Geo.KptData.Converters
 			string y = ReplaceDecimal(p.y, decimalSeparator);
 
 			string result = format;
-			result = result.Replace("{i}", index.ToString());
-			result = result.Replace("{n}", (n).ToString());
-			result = result.Replace("{x}", x);
-			result = result.Replace("{y}", y);
+			result = result.Replace("(i)", index.ToString());
+			result = result.Replace("(n)", (n).ToString());
+			result = result.Replace("(x)", x);
+			result = result.Replace("(y)", y);
 
 			return result;
 		}

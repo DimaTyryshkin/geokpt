@@ -12,7 +12,13 @@ namespace Geo.Tutorials
 		
 		[SerializeField, IsntNull]
 		CanvasGroup rootCanvasGroup;
- 
+
+		public bool EnableInput
+		{
+			get => rootCanvasGroup.blocksRaycasts;
+			set => rootCanvasGroup.blocksRaycasts = value;
+		}
+
 		public WaitForPopupOpened<T> WaitForPopupOpened<T>() where T:Popup
 		{
 			return new WaitForPopupOpened<T>(root);
@@ -20,14 +26,9 @@ namespace Geo.Tutorials
 
 		public IEnumerator WaitForSeconds(float time)
 		{
-			SetEnableInput(false);
+			EnableInput = false;
 			yield return new WaitForSeconds(time);
-			SetEnableInput(true);
-		}
-
-		public void SetEnableInput(bool isEnable)
-		{
-			rootCanvasGroup.blocksRaycasts = isEnable;
-		}
+			EnableInput = true;
+		} 
 	}
 }
