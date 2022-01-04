@@ -180,7 +180,7 @@ namespace Tests
 
 			string referenceTxt = File.ReadAllText(referenceTxtDataFullName);
 
-			string format = "pt{i},{x},{y}";
+			string format = "pt(i),(x),(y)";
 			//В качестве разделителя дробной части 'точка' 
 			ContourToTxtConverter converter = new ContourToTxtConverter();
 			Assert.AreEqual(referenceTxt, converter.ConvertToString(parcel.GetContours()[0], parcel,0, format));

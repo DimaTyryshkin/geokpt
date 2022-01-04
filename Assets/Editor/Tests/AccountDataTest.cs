@@ -35,9 +35,26 @@ namespace Tests
 			AccountData data = AccountDataStorage.LoadFromJson(json1);
 			string json2 = AccountDataStorage.ToJson(data);
 
-			if(json1!=json2)
-				File.WriteAllText(testJsonFileInput_forDif,json2);
-			
+			if (json1 != json2)
+			{
+				File.WriteAllText(testJsonFileInput_forDif, json2);
+				Debug.Log("json1.length="+json1.Length);
+				Debug.Log("json2.length="+json2.Length);
+
+				string s = "'";
+				for (int i = 0; i < Mathf.Min(json1.Length, json2.Length); i++)
+				{
+					if (json1[i] == json2[i])
+						s += json1[i];
+					else
+					{
+						s += "'";
+						Debug.Log(s);
+						break;
+					}
+				}
+			}
+
 			Assert.AreEqual(json1, json2);
 		}
 
