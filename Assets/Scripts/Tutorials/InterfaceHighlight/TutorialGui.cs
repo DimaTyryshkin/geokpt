@@ -2,6 +2,7 @@
 using System.Collections;
 using Geo.Tutorials;
 using SiberianWellness.NotNullValidation;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -28,16 +29,10 @@ namespace Game.ScenarioSystem.GuiHighlight
         [SerializeField, IsntNull]
         Arrow arrow;
         
-        [Header("Text")]
+        [Header("Character")] 
         [SerializeField, IsntNull]
-        RectTransform textTransform;
-        
-        [SerializeField, IsntNull]
-        GameObject character;
-        
-        [SerializeField, IsntNull]
-        Text text;
-
+        TutorialCharacterSpeech tutorialCharacter;
+         
         [SerializeField, IsntNull]
         RectTransform defaultTextPos;
         
@@ -153,44 +148,42 @@ namespace Game.ScenarioSystem.GuiHighlight
             arrow.ShowArrow(rectTransform, orientation, padding);
         }
 
-        public void ShowText(string msg, RectTransform rectTransform , ArrowOrientation orientation)
+        public void ShowTextAndArrowFromDown(string msg, RectTransform rectTransform)
+        {
+            ShowFramesAndArrowAndSetCharacterPosition(rectTransform, ArrowOrientation.FromDown, 1);
+            tutorialCharacter.ShowText(msg);
+            RebuildLayout(tutorialCharacter.Root);
+        }
+        
+        public void ShowTextAndArrowFromTop(int imageIndex, string msg, RectTransform rectTransform)
+        {
+            ShowFramesAndArrowAndSetCharacterPosition(rectTransform, ArrowOrientation.FromTop, 0);
+            tutorialCharacter.ShowCharacterAndText(imageIndex, msg);
+            RebuildLayout(tutorialCharacter.Root);
+        }
+
+        void ShowFramesAndArrowAndSetCharacterPosition(RectTransform rectTransform, ArrowOrientation orientation, float yPivot)
         {
             Hide();
-            
-            text.text = msg;
-
-            if (orientation == ArrowOrientation.FromDown)
-                textTransform.pivot = new Vector2(0.5f, 1f);
-            
-            if (orientation == ArrowOrientation.FromTop)
-                textTransform.pivot = new Vector2(0.5f, 0f);
-
-
-            if (orientation == ArrowOrientation.FromLeft || orientation == ArrowOrientation.FromRight)
-                throw new NotSupportedException();
-
+            var textTransform = tutorialCharacter.Root;
+            textTransform.pivot = new Vector2(0.5f, yPivot);
+ 
             ShowFramesAndArrow(rectTransform, orientation);
             Vector3 pos = textTransform.position;
             pos.y                  = arrow.TextPosition.y;
-            textTransform.position = pos;
-            
-            if(orientation == ArrowOrientation.FromTop)
-                character.SetActive(true);
-            
-            textTransform.gameObject.SetActive(true);
-            RebuildLayout(textTransform);
+            textTransform.position = pos; 
         }
-        
-        public void ShowText(string msg)
+
+        public void ShowText(int imageId, string msg)
         {
             Hide();
+
+            RectTransform root = tutorialCharacter.Root;
             
-            character.SetActive(true);
-            text.text = msg;
-            textTransform.pivot = new Vector2(0.5f, 0.5f);
-            textTransform.position = defaultTextPos.position;
-            textTransform.gameObject.SetActive(true);
-            RebuildLayout(textTransform);
+            tutorialCharacter.ShowCharacterAndText(imageId,msg );
+            root.pivot    = new Vector2(0.5f, 0.5f);
+            root.position = defaultTextPos.position;
+            RebuildLayout(root);
         }
 
         public void BlockAll()
@@ -202,8 +195,7 @@ namespace Game.ScenarioSystem.GuiHighlight
         {
             hideContentPanel.SetActive(false);
             imageButton.gameObject.SetActive(false); 
-            character.SetActive(false);
-            textTransform.gameObject.SetActive(false);
+            tutorialCharacter.Hide(); 
             blockFrame.Hide();
             darkFrame.Hide();
             arrow.Hide();

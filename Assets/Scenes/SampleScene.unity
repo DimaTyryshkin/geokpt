@@ -9019,7 +9019,7 @@ MonoBehaviour:
   loadingPanel: {fileID: 126776389}
   yandexAppMetrica: {fileID: 1024894258}
   isFileSystemTest: 0
-  cleanRun: 0
+  cleanRun: 1
 --- !u!225 &749942827
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -10297,7 +10297,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 74.0083, y: -0.03}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &872529743
@@ -14495,8 +14495,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 456.75, y: -66.52083}
-  m_SizeDelta: {x: 833.5, y: 93.041664}
+  m_AnchoredPosition: {x: 395.02704, y: -67.183784}
+  m_SizeDelta: {x: 710.0541, y: 94.36757}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1205194182
 MonoBehaviour:
@@ -21652,6 +21652,7 @@ GameObject:
   - component: {fileID: 1782812918}
   - component: {fileID: 1782812917}
   - component: {fileID: 1782812916}
+  - component: {fileID: 1782812920}
   m_Layer: 5
   m_Name: textPanel (off)
   m_TagString: Untagged
@@ -21678,7 +21679,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 153}
-  m_SizeDelta: {x: 0, y: 133.04166}
+  m_SizeDelta: {x: 0, y: 134.36757}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1782812916
 MonoBehaviour:
@@ -21756,6 +21757,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1782812914}
   m_CullTransparentMesh: 0
+--- !u!114 &1782812920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1782812914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d69bab707f04bd7afbbde2bd75c3aba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  charcters:
+  - {fileID: 7125365206769183883}
+  - {fileID: 7125365206769183882}
+  - {fileID: 7125365206769183881}
+  text: {fileID: 1205194183}
+  root: {fileID: 1782812915}
 --- !u!1 &1794107210
 GameObject:
   m_ObjectHideFlags: 0
@@ -26867,9 +26886,7 @@ MonoBehaviour:
   darkFrame: {fileID: 8856766377027529296}
   blockAllPanel: {fileID: 4796344083375164372}
   arrow: {fileID: 3869673360737099235}
-  textTransform: {fileID: 1782812915}
-  character: {fileID: 872529741}
-  text: {fileID: 1205194183}
+  tutorialCharacter: {fileID: 1782812920}
   defaultTextPos: {fileID: 645614125}
   elementsCanvasGroup: {fileID: 1036842127}
   fadeSpeed: 2
@@ -27534,8 +27551,41 @@ PrefabInstance:
       propertyPath: m_Name
       value: tutorialCharacterRoot
       objectReference: {fileID: 0}
+    - target: {fileID: 5214417764650502807, guid: 9e3ee43675c7e7843ad17ea9356d2b56,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6777760334172335182, guid: 9e3ee43675c7e7843ad17ea9356d2b56,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7616390726824561828, guid: 9e3ee43675c7e7843ad17ea9356d2b56,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e3ee43675c7e7843ad17ea9356d2b56, type: 3}
+--- !u!1 &7125365206769183881 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5214417764650502807, guid: 9e3ee43675c7e7843ad17ea9356d2b56,
+    type: 3}
+  m_PrefabInstance: {fileID: 7125365206769183880}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7125365206769183882 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6777760334172335182, guid: 9e3ee43675c7e7843ad17ea9356d2b56,
+    type: 3}
+  m_PrefabInstance: {fileID: 7125365206769183880}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7125365206769183883 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7616390726824561828, guid: 9e3ee43675c7e7843ad17ea9356d2b56,
+    type: 3}
+  m_PrefabInstance: {fileID: 7125365206769183880}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &8856766376144360828
 MonoBehaviour:
   m_ObjectHideFlags: 0
