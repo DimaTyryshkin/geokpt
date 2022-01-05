@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Geo.Tutorials;
+using Geo.UI;
 using SiberianWellness.NotNullValidation;
 using TMPro;
 using UnityEngine;
@@ -100,9 +101,7 @@ namespace Game.ScenarioSystem.GuiHighlight
 
         void RebuildLayout(RectTransform rect)
         {  
-            var allRects = rect.gameObject.GetComponentsInChildren<RectTransform>(true);
-            foreach (var r in allRects)
-                LayoutRebuilder.ForceRebuildLayoutImmediate(r);
+            GeoLayoutRebuilder.ForceRebuildLayoutImmediate(rect);
         }
 
         public void ShowArrow(RectTransform rectTransform, ArrowOrientation orientation, float padding)

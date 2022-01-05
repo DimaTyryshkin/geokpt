@@ -165,6 +165,7 @@ namespace Geo
 		
 		void QuiteApp()
 		{
+			storage?.Save();
 			Application.Quit();
 			Debug.Log("<b>Application.Quit</b>");
 		}

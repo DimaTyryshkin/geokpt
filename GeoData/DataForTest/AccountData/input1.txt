@@ -3,6 +3,9 @@
         "appVersion": "9.9.9",
         "writeLocalTime": "03.12.2021 2:07:59"
     },
+    "privacyPolicy": {
+        "acceptedVersion": 0
+    },
     "completedTutorialsId": [
         "tutorial_1",
         "tutorial_2"

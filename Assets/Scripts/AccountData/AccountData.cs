@@ -12,6 +12,7 @@ namespace Geo.Data
 		/// </summary>
 		public Metadata metadata = new Metadata();
 
+		public PrivacyPolicyAndTermsConditions  privacyPolicy                    = new PrivacyPolicyAndTermsConditions();
 		public List<string>                     completedTutorialsId             = new List<string>();
 		public ContourToTxtConverterPreferences contourToTxtConverterPreferences = new ContourToTxtConverterPreferences();
 		public AppAnalyticsDb                   appAnalytics                     = new AppAnalyticsDb();
@@ -29,6 +30,9 @@ namespace Geo.Data
 
 			if (contourToTxtConverterPreferences == null)
 				contourToTxtConverterPreferences = new ContourToTxtConverterPreferences();
+			
+			if (privacyPolicy == null)
+				privacyPolicy = new PrivacyPolicyAndTermsConditions();
 		}
 		
 		[Serializable]
@@ -56,6 +60,29 @@ namespace Geo.Data
 				decimalSeparator = 0;
 				format           = "pt(i), (x), (y)";
 				userFormats      = new List<string>();
+			}
+		}
+
+		[Serializable]
+		public class PrivacyPolicyAndTermsConditions
+		{
+			public int acceptedVersion;
+
+			/// <summary>
+			/// Текущая редакция 'Privacy Policy' и 'Terms and Conditions'
+			/// </summary>
+			public static readonly int actualVersion = 1;
+
+			public bool NeedAccept => acceptedVersion != actualVersion;
+
+			public PrivacyPolicyAndTermsConditions()
+			{
+				acceptedVersion = 0;
+			}
+
+			public void OnAccept()
+			{
+				acceptedVersion = actualVersion;
 			}
 		}
 	}

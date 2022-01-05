@@ -5,6 +5,7 @@ using Geo.Data;
 using Geo.Tutorials;
 using Geo.UI;
 using SiberianWellness.NotNullValidation;
+using UnityEngine.Serialization;
 
 namespace Geo
 {
@@ -15,6 +16,9 @@ namespace Geo
 		
 		[SerializeField, IsntNull]
 		FileSystemTest fileSystemTest;
+
+		[SerializeField, IsntNull]
+		PrivacyPolicyAndTermsConditionsPresenter policyAndTermsConditionsPresenter;
 		
 		[SerializeField, IsntNull]
 		UpdateAppPresenter updateAppPresenter;
@@ -37,10 +41,19 @@ namespace Geo
 		[SerializeField]
 		bool cleanRun;
 		
+		[SerializeField]
+		bool skipTutorials;
+		
 		UnityRemoteConfigIntegration remoteConfig;
+		AccountDataStorage           storage;
+		AccountData                  data;
 
 		void Start()
 		{
+#if !UNITY_EDITOR
+			cleanRun      = false;
+			skipTutorials = false;
+#endif
 			loadingPanel.SetActive(true);
 			if(cleanRun)
 				PlayerPrefs.DeleteAll();
@@ -55,6 +68,10 @@ namespace Geo
 
 		void OnRemoteConfigFetchComplete()
 		{
+			PlayerPrefsWrapper playerPrefs = new PlayerPrefsWrapper();
+			storage = new AccountDataStorage(playerPrefs);
+			data    = storage.GetInst();
+			
 			if (isFileSystemTest)
 			{
 				loadingPanel.SetActive(false);
@@ -62,26 +79,38 @@ namespace Geo
 			}
 			else
 			{
-				Version appVersion = new Version(Application.version);
-				updateAppPresenter.skip += InitApp;
+				PrivacyPolicyAndTermsConditions();
+			}
+		}
 
-				string url = remoteConfig.GooglePlayMarketUrl;
+		void PrivacyPolicyAndTermsConditions()
+		{
+			policyAndTermsConditionsPresenter.Init(data.privacyPolicy);
+			policyAndTermsConditionsPresenter.Assepted += UpdatePopup;
+			policyAndTermsConditionsPresenter.StartUserAccepting();
+		}
+
+		void UpdatePopup()
+		{
+			Version appVersion = new Version(Application.version);
+			updateAppPresenter.skip += InitApp;
+
+			string url = remoteConfig.GooglePlayMarketUrl;
 
 #if UNITY_EDITOR
 				url = remoteConfig.GooglePlayUrl;
 #endif
-				if (appVersion < remoteConfig.MinAndroidVersion)
-				{
-					updateAppPresenter.Show(false, remoteConfig.MaxAndroidVersion, remoteConfig.NewVersionInfo, url);
-				}
-				else if (appVersion < remoteConfig.MaxAndroidVersion)
-				{
-					updateAppPresenter.Show(true, remoteConfig.MaxAndroidVersion, remoteConfig.NewVersionInfo, url);
-				}
-				else
-				{
-					InitApp();
-				}
+			if (appVersion < remoteConfig.MinAndroidVersion)
+			{
+				updateAppPresenter.Show(false, remoteConfig.MaxAndroidVersion, remoteConfig.NewVersionInfo, url);
+			}
+			else if (appVersion < remoteConfig.MaxAndroidVersion)
+			{
+				updateAppPresenter.Show(true, remoteConfig.MaxAndroidVersion, remoteConfig.NewVersionInfo, url);
+			}
+			else
+			{
+				InitApp();
 			}
 		}
 
@@ -90,9 +119,6 @@ namespace Geo
 			yandexAppMetrica.Init();
 			popupsRoot.Init();
 			
-			PlayerPrefsWrapper playerPrefs  = new PlayerPrefsWrapper();
-			var                storage      = new AccountDataStorage(playerPrefs);
-			AccountData        data         = storage.GetInst();
 			var                appAnalytics = new AppAnalytics(data.appAnalytics);
 			appAnalytics.StartApp();
 			
@@ -105,12 +131,16 @@ namespace Geo
 				defaultKptFiles.CopyToCache(kptFilesCache);
 			}
 			 
-			tutorialStarter.Init(storage);
+			if(!skipTutorials)
+				tutorialStarter.Init(storage);
+			
 			mainPresenter.Init(storage, appAnalytics, kptFilesCache, remoteConfig.Config);
 			
 			storage.Save();
 			loadingPanel.SetActive(false);
-			tutorialStarter.OnShowStartScreen();
+			
+			if(!skipTutorials)
+				tutorialStarter.OnShowStartScreen();
 		}
 	}
 }
