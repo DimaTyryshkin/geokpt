@@ -141,7 +141,7 @@ namespace Geo.KptData.KptReaders
 				else if(attribute.Contains("x-artefacts-rosreestr-ru/outgoing/kpt/10"))
 					kptReader = new Kpt10Reader(xmlDoc);
 				else
-					throw new Exception($"File '{fileName}' with docName '{xmlDoc.Name}' with xml root name '{rootName}' and root namespace '{attribute}' not supported");
+					throw new NotSupportedException($"File '{fileName}' with docName '{xmlDoc.Name}' with xml root name '{rootName}' and root namespace '{attribute}' not supported");
 			}
 			else if (rootName == "KVZU")//Кадастрвая выписка
 			{
@@ -149,7 +149,7 @@ namespace Geo.KptData.KptReaders
 				if (attribute.Contains("urn://x-artefacts-rosreestr-ru/outgoing/kvzu/7.0.1"))
 					kptReader = new Kpt10ExcerptReader(xmlDoc);
 				else
-					throw new Exception($"File '{fileName}' with docName '{xmlDoc.Name}' with xml root name '{rootName}' and root namespace '{attribute}' not supported");
+					throw new NotSupportedException($"File '{fileName}' with docName '{xmlDoc.Name}' with xml root name '{rootName}' and root namespace '{attribute}' not supported");
 			}
 			else if (rootName == "extract_cadastral_plan_territory")
 				kptReader = new Kpt11Reader(xmlDoc);
