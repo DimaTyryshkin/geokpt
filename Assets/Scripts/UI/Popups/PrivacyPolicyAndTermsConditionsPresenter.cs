@@ -14,6 +14,7 @@ namespace Geo
 		AccountData.PrivacyPolicyAndTermsConditions data;
 
 		public event UnityAction Assepted;
+		public event UnityAction Complete;
 
 		public void Init(AccountData.PrivacyPolicyAndTermsConditions data)
 		{
@@ -29,7 +30,7 @@ namespace Geo
 			}
 			else
 			{
-				Assepted?.Invoke();
+				Complete?.Invoke();
 			}
 		}
 
@@ -38,6 +39,7 @@ namespace Geo
 			data.OnAccept();
 			popup.Close();
 			Assepted?.Invoke();
+			Complete?.Invoke();
 		}
 	}
 }

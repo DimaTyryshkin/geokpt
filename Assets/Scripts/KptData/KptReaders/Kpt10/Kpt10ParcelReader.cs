@@ -9,6 +9,8 @@ namespace Geo.KptData.KptReaders.Kpt10
 		XmlElement          _node;
 		XmlNamespaceManager nsmgr;
 
+		protected virtual string ReadableAddressXPath => "root:Location/root:Address/adrOut4:Note";
+		
 		public Kpt10ParcelReader(XmlElement node, XmlNamespaceManager nsmgr)
 		{
 			Assert.IsNotNull(node);
@@ -35,7 +37,7 @@ namespace Geo.KptData.KptReaders.Kpt10
 		{
 			if (readableAddressCache == null)
 			{
-				var addressNOde = _node.SelectSingleNode("root:Location/root:Address/adrOut4:Note", nsmgr);
+				var addressNOde = _node.SelectSingleNode(ReadableAddressXPath, nsmgr);
 				if (addressNOde != null)
 					readableAddressCache = addressNOde.InnerText;
 				else

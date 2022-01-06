@@ -86,7 +86,8 @@ namespace Geo
 		void PrivacyPolicyAndTermsConditions()
 		{
 			policyAndTermsConditionsPresenter.Init(data.privacyPolicy);
-			policyAndTermsConditionsPresenter.Assepted += UpdatePopup;
+			//policyAndTermsConditionsPresenter.Assepted += () => storage.Save();
+			policyAndTermsConditionsPresenter.Complete += UpdatePopup;
 			policyAndTermsConditionsPresenter.StartUserAccepting();
 		}
 

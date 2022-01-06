@@ -1,0 +1,26 @@
+{
+    "metadata": {
+        "appVersion": "9.9.9",
+        "writeLocalTime": "03.12.2021 2:07:59"
+    },
+    "privacyPolicy": {
+        "acceptedVersion": 0
+    },
+    "completedTutorialsId": [
+        "tutorial_1",
+        "tutorial_2"
+    ],
+    "contourToTxtConverterPreferences": {
+        "decimalSeparator": 0,
+        "format": "{i}-{x}-{y}-AAA",
+        "userFormats": [
+            "{x} {y}",
+            "{i} {n} {x} {y}"
+        ]
+    },
+    "appAnalytics": {
+        "userSegment": 0,
+        "successExportNumber": 0,
+        "sessionNumber": 0
+    }
+}

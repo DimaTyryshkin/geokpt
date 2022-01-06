@@ -4,6 +4,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Xml;
 using System.Xml.Linq;
+using Geo.KptData.KptReader.Kpt10Excerpt;
 using Geo.KptData.KptReaders.Kpt10;
 using Geo.KptData.KptReaders.Kpt11; 
 using UnityEngine;
@@ -139,6 +140,14 @@ namespace Geo.KptData.KptReaders
 					kptReader = new Kpt09Reader(xmlDoc);
 				else if(attribute.Contains("x-artefacts-rosreestr-ru/outgoing/kpt/10"))
 					kptReader = new Kpt10Reader(xmlDoc);
+				else
+					throw new Exception($"File '{fileName}' with docName '{xmlDoc.Name}' with xml root name '{rootName}' and root namespace '{attribute}' not supported");
+			}
+			else if (rootName == "KVZU")//Кадастрвая выписка
+			{
+				string attribute = docElement.GetAttribute("xmlns");
+				if (attribute.Contains("urn://x-artefacts-rosreestr-ru/outgoing/kvzu/7.0.1"))
+					kptReader = new Kpt10ExcerptReader(xmlDoc);
 				else
 					throw new Exception($"File '{fileName}' with docName '{xmlDoc.Name}' with xml root name '{rootName}' and root namespace '{attribute}' not supported");
 			}

@@ -59,25 +59,24 @@ namespace Tests
 			return GetReader(doc);
 		}
 
-		[Test]
-		public void TT()
-		{
-
-			var doc = GetDocument();
-			var kpt = GetReader(doc);
-			foreach (var parcel in kpt.GetAllParcels())
-			{
-				var contours = parcel.GetContours();
-				if (contours.Count == 1) 
-					continue;
-
-				foreach (var contour in contours)
-				{
-				
-						Debug.Log(contour.ID);
-				}
-			}
-		}
+		// [Test]
+		// public void Log()
+		// {
+		//
+		// 	var doc = GetDocument();
+		// 	var kpt = GetReader(doc);
+		// 	foreach (var parcel in kpt.GetAllParcels())
+		// 	{
+		// 		var contours = parcel.GetContours();
+		// 		if (contours.Count == 1)
+		// 			continue;
+		//
+		// 		foreach (var contour in contours)
+		// 		{ 
+		// 			Debug.Log(contour.ID);
+		// 		}
+		// 	}
+		// }
 
 		[Test]
 		public void PrintAllPaths()

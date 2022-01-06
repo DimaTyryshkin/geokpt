@@ -28,7 +28,6 @@ namespace Geo.KptData.KptReaders.Kpt10
 		public Kpt10Reader(XmlDocument doc)
 		{
 			Assert.IsNotNull(doc);
-
 			this.doc = doc;
 
 			nsmgr = new XmlNamespaceManager(doc.NameTable);
