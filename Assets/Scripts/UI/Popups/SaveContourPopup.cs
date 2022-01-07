@@ -24,7 +24,7 @@ namespace Geo.UI
 		[SerializeField, IsntNull]
 		Text previewResultText;
 
-		[SerializeField, IsntNull]
+		[SerializeField, IsntNull] 
 		Button saveToFileButton;
 		
 		[SerializeField, IsntNull]
@@ -33,7 +33,7 @@ namespace Geo.UI
 		public Button SaveToFileButton => saveToFileButton;
 
 		AccountData.ContourToTxtConverterPreferences preferences;
-		ContourToTxtConverterWrapper                 converter;
+		ContourToTxtConverterFactory                 converterFactory;
 		IContour                                     contour;
 		IParcel                                      parcel;
 		string                                       folderToSaveFile;
@@ -72,17 +72,17 @@ namespace Geo.UI
 
 		public void ShowAndRedraw()
 		{ 
-			converter                = new ContourToTxtConverterWrapper(preferences);
+			converterFactory                = new ContourToTxtConverterFactory(preferences);
 			cadastralNumberText.text = parcel.GetCadastralNumber();
 			areaText.text            = parcel.GetArea();
 			addressText.text         = parcel.GetReadableAddress();
-			previewResultText.text   = converter.ConvertToString(contour, parcel);
+			previewResultText.text   = converterFactory.Creat().ConvertToString(contour, parcel);
 			Show();
 		} 
 		
 		void OnClickSaveToFile()
 		{
-			string fullName = converter.ConvertToFile(folderToSaveFile, contour, parcel);
+			string fullName = converterFactory.Creat().ConvertToFile(folderToSaveFile, contour, parcel);
 			Debug.Log($"save to '{fullName}'");
 
 			saved?.Invoke(fullName);

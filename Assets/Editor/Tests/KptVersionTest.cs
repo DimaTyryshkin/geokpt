@@ -181,10 +181,10 @@ namespace Tests
 
 			string format = "pt(i),(x),(y)";
 			//В качестве разделителя дробной части 'точка' 
-			ContourToTxtConverter converter = new ContourToTxtConverter();
-			Assert.AreEqual(referenceTxt, converter.ConvertToString(parcel.GetContours()[0], parcel,0, format));
+			ContourToTxtConverter converter = new ContourToTxtConverter(0, format);
+			Assert.AreEqual(referenceTxt, converter.ConvertToString(parcel.GetContours()[0], parcel));
 
-			string fileName = converter.ConvertToFile(tempFolder,parcel.GetContours()[0], parcel,0, format);
+			string fileName = converter.ConvertToFile(tempFolder,parcel.GetContours()[0], parcel);
 			string result   = File.ReadAllText(fileName);
 			Assert.AreEqual(referenceTxt, result);
 		}

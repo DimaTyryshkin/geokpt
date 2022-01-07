@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Geo.Data.AnalyticsDb;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Geo.Data
 {
@@ -48,6 +49,9 @@ namespace Geo.Data
 			} 
 		}
 		
+		/// <summary>
+		/// Данные для универсального формата
+		/// </summary>
 		[Serializable]
 		public class ContourToTxtConverterPreferences
 		{
@@ -60,6 +64,28 @@ namespace Geo.Data
 				decimalSeparator = 0;
 				format           = "pt(i), (x), (y)";
 				userFormats      = new List<string>();
+			}
+		}
+		
+		/// <summary>
+		/// Данные для понятного формата
+		/// </summary>
+		[Serializable]
+		public class ContourToTxtConverterPreferences2
+		{
+			public int          decimalSeparator;
+			public bool         height;
+			public string       separator;
+			public string       pointIndexFormat;
+			public List<string> userSeparators;
+
+			public ContourToTxtConverterPreferences2()
+			{
+				decimalSeparator = 0;
+				height           = false;
+				separator        = " ";
+				pointIndexFormat = "pt(i)";
+				userSeparators   = new List<string>();
 			}
 		}
 

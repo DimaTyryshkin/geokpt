@@ -6,48 +6,19 @@ using UnityEngine.Assertions;
 
 namespace Geo
 {
-	public class ContourToTxtConverterWrapper
+	public class ContourToTxtConverterFactory
 	{
 		readonly AccountData.ContourToTxtConverterPreferences preferences;
-		
-		public int PreferredDecimalSeparatorIndex
+
+		public ContourToTxtConverterFactory(AccountData.ContourToTxtConverterPreferences preferences)
 		{
-			get => preferences.decimalSeparator;
-			set
-			{
-				if (value >= ContourToTxtConverter.decimals.Length || value < 0)
-				{
-					preferences.decimalSeparator = 0;
-				}
-				else
-				{
-					preferences.decimalSeparator = value;
-				}
-			}
+			this.preferences = preferences;
 		}
 
-		public ContourToTxtConverterWrapper(AccountData.ContourToTxtConverterPreferences preferences)
-		{
-			this.preferences               = preferences;
-			PreferredDecimalSeparatorIndex = preferences.decimalSeparator;//вызываем валидацю
-		}
-
-		public string ConvertToString(IContour contour, IParcel parcel)
-		{
-			Assert.IsNotNull(contour);
-			Assert.IsNotNull(parcel);
-			 
-			var converter = new ContourToTxtConverter(); 
-			return converter.ConvertToString(contour, parcel, PreferredDecimalSeparatorIndex, preferences.format);
-		}
-
-		public string ConvertToFile(string folderToSaveFile, IContour contour, IParcel parcel)
+		public ContourToTxtConverterBase Creat()
 		{ 
-			Assert.IsNotNull(contour);
-			Assert.IsNotNull(parcel);
-			
-			var converter = new ContourToTxtConverter(); 
-			return converter.ConvertToFile(folderToSaveFile, contour, parcel, PreferredDecimalSeparatorIndex, preferences.format);
+			var converter = new ContourToTxtConverter(preferences.decimalSeparator, preferences.format);
+			return converter;
 		}
 	}
 }

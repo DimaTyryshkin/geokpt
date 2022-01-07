@@ -169,8 +169,7 @@ namespace Geo
 		/// Заново показать презентер в том состоянии в котормо он был в момент прятания
 		/// </summary>
 		public void Wakeup()
-		{
-			//TODO Вот тут надо тоже запускать туторила 
+		{ 
 			Assert.IsTrue(CanWakeup);
 			root.SetActive(true);
 
