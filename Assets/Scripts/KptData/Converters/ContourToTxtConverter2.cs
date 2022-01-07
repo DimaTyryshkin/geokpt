@@ -11,7 +11,7 @@ namespace Geo.KptData.Converters
 
 		public ContourToTxtConverter2(int decimalSeparatorIndex, string separator, string pointIndexFormat, bool height) : base(decimalSeparatorIndex)
 		{
-			Assert.IsFalse(string.IsNullOrWhiteSpace(separator));
+			Assert.IsFalse(string.IsNullOrEmpty(separator));
 
 			this.separator        = separator;
 			this.pointIndexFormat = pointIndexFormat;

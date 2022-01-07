@@ -11,7 +11,7 @@ using UnityEngine;
 using Assert = UnityEngine.Assertions.Assert;
 
 namespace Tests
-{ 
+{
 	public abstract class KptVersionTest
 	{
 		readonly static string dataFolderTemplate = "GeoData/DataForTest/KptExamples/Kpt{0}/";
@@ -166,9 +166,9 @@ namespace Tests
 		public void TxtConverter()
 		{
 			Assert.IsFalse(CadastralNumber.Contains("_"), "Замени в кадастровом номере символ '_' на символ ':'");
-			
+
 			IKpt kptReader = GetReader();
-			
+
 			string referenceTxtDataFullName = DataFolder + ReferenceParcelDataFileName;
 
 			CreateTempFolder(tempFolder);
@@ -179,12 +179,20 @@ namespace Tests
 
 			string referenceTxt = File.ReadAllText(referenceTxtDataFullName);
 
-			string format = "pt(i),(x),(y)";
-			//В качестве разделителя дробной части 'точка' 
-			ContourToTxtConverter converter = new ContourToTxtConverter(0, format);
+			string                format     = "pt(i),(x),(y)";
+			ContourToTxtConverter converter1 = new ContourToTxtConverter(0, format);
+			TestTxtConverter(referenceTxt, converter1, parcel);
+
+			string                 indexFormat = "pt(i)";
+			ContourToTxtConverter2 converter2  = new ContourToTxtConverter2(0, ",", indexFormat, false);
+			TestTxtConverter(referenceTxt, converter2, parcel);
+		}
+
+		void TestTxtConverter(string referenceTxt, ContourToTxtConverterBase converter, IParcel parcel)
+		{
 			Assert.AreEqual(referenceTxt, converter.ConvertToString(parcel.GetContours()[0], parcel));
 
-			string fileName = converter.ConvertToFile(tempFolder,parcel.GetContours()[0], parcel);
+			string fileName = converter.ConvertToFile(tempFolder, parcel.GetContours()[0], parcel);
 			string result   = File.ReadAllText(fileName);
 			Assert.AreEqual(referenceTxt, result);
 		}
