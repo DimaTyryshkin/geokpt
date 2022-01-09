@@ -1,6 +1,4 @@
-﻿using System;
-using Geo.UI;
-using UnityEngine.Serialization;
+﻿using System; 
 
 namespace Geo
 {

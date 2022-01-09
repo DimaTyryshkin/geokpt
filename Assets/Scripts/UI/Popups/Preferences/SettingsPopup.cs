@@ -62,7 +62,7 @@ namespace Geo.UI
 
 		void DrawPreview()
 		{
-			string                decimalSeparator = CoordinateFormats2.GetDecimalSeparator(preferences.decimalSeparator);
+			string                decimalSeparator = DecimalSeparatorsList.GetDecimalSeparator(preferences.decimalSeparator);
 			ContourToTxtConverter converter        = new ContourToTxtConverter(decimalSeparator, preferences.format);
 			Point                 p                = new Point("9999.99", "11111.11");
 			outputPreviewText.text = converter.PointToString(0, p);
