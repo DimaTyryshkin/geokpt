@@ -49,9 +49,14 @@ namespace Geo
 			//NativeFileBrowser fileBrowser = new NativeFileBrowser(fileExtensions);
 			NativeFileBrowser fileBrowser = new NativeFileBrowser(new []{"*/*"});
 
-			AccountData.ContourToTxtConverterPreferences contourToTxtConverterPreferences = storage.GetInst().contourToTxtConverterPreferences;
-			documentPresenter.Init(fileBrowser, appAnalytics, contourToTxtConverterPreferences);
-			preferencesPresenter.Init(contourToTxtConverterPreferences, config.defaultContourToTxtFormats, storage);
+			AccountData                  accountData                  = storage.GetInst();
+			ContourToTxtConverterFactory contourToTxtConverterFactory = new ContourToTxtConverterFactory(
+				accountData.contourToTxtConverterPreferences,
+				accountData.contourToTxtConverterPreferences2,
+				config.coordinateFormats2Config);
+				
+			documentPresenter.Init(fileBrowser, appAnalytics, contourToTxtConverterFactory);
+			preferencesPresenter.Init(accountData.contourToTxtConverterPreferences, config.defaultContourToTxtFormats, storage);
 
 			navigationMenu.clickResent += ShowRecent;
 			navigationMenu.clickDocument += ShowDocument;

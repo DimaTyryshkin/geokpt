@@ -18,6 +18,13 @@
             "{i} {n} {x} {y}"
         ]
     },
+    "contourToTxtConverterPreferences2": {
+        "decimalSeparator": 0,
+        "height": false,
+        "separator": ", ",
+        "pointIndexFormat": "pt(i)",
+        "userSeparators": []
+    },
     "appAnalytics": {
         "userSegment": 0,
         "successExportNumber": 0,

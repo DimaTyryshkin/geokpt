@@ -11,7 +11,7 @@ namespace Tests
 		public void ContourToTxtConverter1_1()
 		{
 			string                format     = "pt(i),(x),(y)";
-			ContourToTxtConverter converter1 = new ContourToTxtConverter(0, format);
+			ContourToTxtConverter converter1 = new ContourToTxtConverter(".", format);
 			Point                 p          = new Point("9.9", "1.1"); 
 			string                text       = converter1.PointToString(5, p);
 			
@@ -22,7 +22,7 @@ namespace Tests
 		public void ContourToTxtConverter1_2()
 		{
 			string                format     = "n=(n) (x) (y) 0";
-			ContourToTxtConverter converter1 = new ContourToTxtConverter(1, format);
+			ContourToTxtConverter converter1 = new ContourToTxtConverter(",", format);
 			Point                 p          = new Point("9.9", "1.1"); 
 			string                text       = converter1.PointToString(5, p);
 			
@@ -33,7 +33,7 @@ namespace Tests
 		public void ContourToTxtConverter2_1()
 		{
 			string                 indexFormat = "pt(i)";
-			ContourToTxtConverter2 converter2  = new ContourToTxtConverter2(0, ",", indexFormat, false);
+			ContourToTxtConverter2 converter2  = new ContourToTxtConverter2(".", ",", indexFormat, false);
 			Point                  p           = new Point("9.9", "1.1"); 
 			string                 text        = converter2.PointToString(5, p);
 			
@@ -44,7 +44,7 @@ namespace Tests
 		public void ContourToTxtConverter2_2()
 		{
 			string                 indexFormat = "";
-			ContourToTxtConverter2 converter2  = new ContourToTxtConverter2(1, " ", indexFormat, true);
+			ContourToTxtConverter2 converter2  = new ContourToTxtConverter2(",", " ", indexFormat, true);
 			Point                  p           = new Point("9.9", "1.1"); 
 			string                 text        = converter2.PointToString(5, p);
 			

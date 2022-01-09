@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using UnityEngine.Assertions;
 
 namespace Geo.KptData.Converters
-{
+{ 
 	public abstract class ContourToTxtConverterBase
-	{
-		public static readonly string[] decimals = new string[] {".", ","};
-		
-		int decimalSeparatorIndex;
+	{ 
+		string decimalSeparator;
 
-		protected ContourToTxtConverterBase(int decimalSeparatorIndex)
+		public string DecimalSeparator => decimalSeparator;
+
+		protected ContourToTxtConverterBase(string decimalSeparator)
 		{
-			this.decimalSeparatorIndex = decimalSeparatorIndex;
+			Assert.IsFalse(string.IsNullOrEmpty(decimalSeparator));
+			this.decimalSeparator = decimalSeparator;
 		}
 
 		public string ConvertToFile(string folderFullName, IContour contour, IParcel parcel)
@@ -26,8 +28,7 @@ namespace Geo.KptData.Converters
 		}
 
 		public string ConvertToString(IContour contour, IParcel parcel)
-		{
-			string      decimalSeparator = GetDecimalSeparatorSafe(decimalSeparatorIndex);
+		{ 
 			List<Point> points           = contour.GetPoints();
 
 			string resilt = "";
@@ -39,20 +40,17 @@ namespace Geo.KptData.Converters
 
 		public string PointToString(int i, Point point)
 		{
-			return PointToString(i, point, GetDecimalSeparatorSafe(decimalSeparatorIndex));
+			return PointToString(i, point, decimalSeparator);
 		}
 
-		protected abstract string PointToString(int i, Point point, string decimalSeparator);
-
-
-		public static string GetDecimalSeparatorSafe(int index)
+		protected string PointToString(int i, Point point, string decimalSeparator)
 		{
-			if (index < 0 || index >= decimals.Length)
-				return decimals[0];
-
-			return decimals[index];
+			string format = GetFormat();
+			return PointToStringWithFormat(i, point, decimalSeparator, format);
 		}
 
+		public abstract string GetFormat();
+		
 		protected static string ReplaceDecimal(string origin, string newDecimal)
 		{
 			if (origin.Contains(","))
@@ -75,8 +73,22 @@ namespace Geo.KptData.Converters
 					name += "_";
 			}
 
-
 			return name + ".txt";
+		}
+		
+		protected string PointToStringWithFormat(int index, Point p, string decimalSeparator, string format)
+		{
+			int    n = index + 1;
+			string x = ReplaceDecimal(p.x, decimalSeparator);
+			string y = ReplaceDecimal(p.y, decimalSeparator);
+
+			string result = format;
+			result = result.Replace("(i)", index.ToString());
+			result = result.Replace("(n)", (n).ToString());
+			result = result.Replace("(x)", x);
+			result = result.Replace("(y)", y);
+
+			return result;
 		}
 	}
 }

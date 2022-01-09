@@ -1,4 +1,6 @@
 ﻿using System;
+using Geo.UI;
+using UnityEngine.Serialization;
 
 namespace Geo
 {
@@ -6,7 +8,9 @@ namespace Geo
 	public class GeoConfig
 	{
 		public string[] defaultContourToTxtFormats;
-            
+
+		public CoordinateFormats2Config coordinateFormats2Config; 
+		
 		public GeoConfig()
 		{
 			defaultContourToTxtFormats = new[]
@@ -15,6 +19,8 @@ namespace Geo
 				"pt(i), (x), (y)",
 				"pt(i), (x), (y), 0",
 			};
+
+			coordinateFormats2Config = new CoordinateFormats2Config();
 		}
 	}
 }

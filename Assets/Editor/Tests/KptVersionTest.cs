@@ -180,11 +180,11 @@ namespace Tests
 			string referenceTxt = File.ReadAllText(referenceTxtDataFullName);
 
 			string                format     = "pt(i),(x),(y)";
-			ContourToTxtConverter converter1 = new ContourToTxtConverter(0, format);
+			ContourToTxtConverter converter1 = new ContourToTxtConverter(".", format);
 			TestTxtConverter(referenceTxt, converter1, parcel);
 
 			string                 indexFormat = "pt(i)";
-			ContourToTxtConverter2 converter2  = new ContourToTxtConverter2(0, ",", indexFormat, false);
+			ContourToTxtConverter2 converter2  = new ContourToTxtConverter2(".", ",", indexFormat, false);
 			TestTxtConverter(referenceTxt, converter2, parcel);
 		}
 

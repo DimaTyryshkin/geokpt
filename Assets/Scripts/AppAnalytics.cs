@@ -112,14 +112,12 @@ namespace Geo
 			);
 		}
 
-		public void TryExportContour(AccountData.ContourToTxtConverterPreferences preferences)
-		{	
-			string lastDecimalSeparator = ContourToTxtConverter.GetDecimalSeparatorSafe(preferences.decimalSeparator); 
-
+		public void TryExportContour(ContourToTxtConverterBase converter)
+		{
 			Step("try_export_contour", new Dictionary<string, object>()
 			{
-				{"decimal_separator", $"'{lastDecimalSeparator}'"},
-				{"format", $"'{preferences.format}'"},
+				{"decimal_separator", $"'{converter.DecimalSeparator}'"},
+				{"format", $"'{converter.GetFormat()}'"},
 				{"success_export_count", data.successExportNumber},
 				{"user_segment", data.userSegment.ToString()}
 			});

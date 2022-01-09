@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Geo.Data;
 using Geo.KptData.Converters;
 using SiberianWellness.NotNullValidation;
@@ -34,7 +35,7 @@ namespace Geo.UI
 			Assert.IsNotNull(preferences);
 			Assert.IsNotNull(storage);
 			
-			Assert.AreEqual(separatorToggles.Length, ContourToTxtConverter.decimals.Length);
+			Assert.AreEqual(separatorToggles.Length, CoordinateFormats2.decimals.Select(s=>s.separator).Count());
 			this.preferences = preferences;
 			this.storage     = storage;
 			

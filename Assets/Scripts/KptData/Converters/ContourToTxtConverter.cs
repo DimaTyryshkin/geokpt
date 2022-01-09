@@ -8,24 +8,14 @@ namespace Geo.KptData.Converters
 		/// </summary>
 		public string format;
 
-		public ContourToTxtConverter(int decimalSeparatorIndex, string format) : base(decimalSeparatorIndex)
+		public ContourToTxtConverter(string decimalSeparator, string format) : base(decimalSeparator)
 		{
 			this.format = format;
 		}
 
-		protected override string PointToString(int index, Point p, string decimalSeparator)
-		{
-			int    n = index + 1;
-			string x = ReplaceDecimal(p.x, decimalSeparator);
-			string y = ReplaceDecimal(p.y, decimalSeparator);
-
-			string result = format;
-			result = result.Replace("(i)", index.ToString());
-			result = result.Replace("(n)", (n).ToString());
-			result = result.Replace("(x)", x);
-			result = result.Replace("(y)", y);
-
-			return result;
+		public override string GetFormat()
+		{ 
+			return format;
 		}
 	}
 }

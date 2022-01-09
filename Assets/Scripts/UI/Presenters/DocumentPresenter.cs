@@ -2,6 +2,7 @@
 using System.Linq;
 using Geo.Data;
 using Geo.KptData;
+using Geo.KptData.Converters;
 using Geo.OsIntegration;
 using Geo.UI;
 using SiberianWellness.NotNullValidation;
@@ -32,7 +33,7 @@ namespace Geo
 		IParcel                                      selectedParcel;
 		NativeFileBrowser                            fileBrowser;
 		AppAnalytics                                 appAnalytics;
-		AccountData.ContourToTxtConverterPreferences preferences;
+		ContourToTxtConverterFactory contourToTxtConverterFactory;
 
 		public bool CanWakeup { get; private set; }
 
@@ -48,14 +49,14 @@ namespace Geo
 			successLoad = null;
 		}
 
-		public void Init(NativeFileBrowser fileBrowser, AppAnalytics appAnalytics, AccountData.ContourToTxtConverterPreferences preferences)
+		public void Init(NativeFileBrowser fileBrowser, AppAnalytics appAnalytics, ContourToTxtConverterFactory contourToTxtConverterFactory)
 		{
 			Assert.IsNotNull(fileBrowser);
 			Assert.IsNotNull(appAnalytics);
-			Assert.IsNotNull(preferences);
-			this.fileBrowser  = fileBrowser;
-			this.preferences  = preferences;
-			this.appAnalytics = appAnalytics;
+			Assert.IsNotNull(contourToTxtConverterFactory);
+			this.fileBrowser                  = fileBrowser;
+			this.contourToTxtConverterFactory = contourToTxtConverterFactory;
+			this.appAnalytics                 = appAnalytics;
 
 			documentPopup.cancel += () =>
 			{
@@ -124,9 +125,9 @@ namespace Geo
 			documentPopup.Show(filePath);
 		}
 
-		void TrySave(string filePath)
+		void TrySave(string filePath, ContourToTxtConverterBase converter)
 		{
-			appAnalytics.TryExportContour(preferences);
+			appAnalytics.TryExportContour(converter);
 #if UNITY_EDITOR
 			SaveFile(filePath);
 #else
@@ -194,7 +195,7 @@ namespace Geo
 
 		void ShowSaveParcelDataPopup(IParcel p, IContour c)
 		{
-			saveParcelDataPopup.Show(p, c, preferences, Application.temporaryCachePath);
+			saveParcelDataPopup.Show(p, c, contourToTxtConverterFactory, Application.temporaryCachePath);
 		}
 	}
 }

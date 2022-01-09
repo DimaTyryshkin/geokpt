@@ -16,6 +16,7 @@ namespace Geo.Data
 		public PrivacyPolicyAndTermsConditions  privacyPolicy                    = new PrivacyPolicyAndTermsConditions();
 		public List<string>                     completedTutorialsId             = new List<string>();
 		public ContourToTxtConverterPreferences contourToTxtConverterPreferences = new ContourToTxtConverterPreferences();
+		public ContourToTxtConverterPreferences2 contourToTxtConverterPreferences2 = new ContourToTxtConverterPreferences2();
 		public AppAnalyticsDb                   appAnalytics                     = new AppAnalyticsDb();
 
 		public void Validate()
@@ -31,6 +32,9 @@ namespace Geo.Data
 
 			if (contourToTxtConverterPreferences == null)
 				contourToTxtConverterPreferences = new ContourToTxtConverterPreferences();
+			
+			if (contourToTxtConverterPreferences2 == null)
+				contourToTxtConverterPreferences2 = new ContourToTxtConverterPreferences2();
 			
 			if (privacyPolicy == null)
 				privacyPolicy = new PrivacyPolicyAndTermsConditions();
@@ -83,7 +87,7 @@ namespace Geo.Data
 			{
 				decimalSeparator = 0;
 				height           = false;
-				separator        = " ";
+				separator        = ", ";
 				pointIndexFormat = "pt(i)";
 				userSeparators   = new List<string>();
 			}

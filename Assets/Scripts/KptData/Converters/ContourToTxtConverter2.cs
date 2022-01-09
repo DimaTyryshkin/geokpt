@@ -9,7 +9,7 @@ namespace Geo.KptData.Converters
 		string pointIndexFormat;
 		bool   height;
 
-		public ContourToTxtConverter2(int decimalSeparatorIndex, string separator, string pointIndexFormat, bool height) : base(decimalSeparatorIndex)
+		public ContourToTxtConverter2(string decimalSeparator, string separator, string pointIndexFormat, bool height) : base(decimalSeparator)
 		{
 			Assert.IsFalse(string.IsNullOrEmpty(separator));
 
@@ -18,23 +18,20 @@ namespace Geo.KptData.Converters
 			this.height           = height;
 		}
 
-		protected override string PointToString(int index, Point p, string decimalSeparator)
+		public override string GetFormat()
 		{
-			string x = ReplaceDecimal(p.x, decimalSeparator);
-			string y = ReplaceDecimal(p.y, decimalSeparator);
-
-			List<string> paths = new List<string>();
+			List<string> formatPaths = new List<string>();
 
 			if (!string.IsNullOrEmpty(pointIndexFormat))
-				paths.Add(pointIndexFormat.Replace("(i)", index.ToString()));
+				formatPaths.Add(pointIndexFormat);
 
-			paths.Add(x);
-			paths.Add(y);
+			formatPaths.Add("(x)");
+			formatPaths.Add("(y)");
 
 			if (height)
-				paths.Add("0");
+				formatPaths.Add("0");
 
-			return string.Join(separator, paths);
+			return string.Join(separator, formatPaths);
 		}
 	}
 }
