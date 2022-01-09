@@ -107,12 +107,12 @@ namespace SiberianWellness.Common
 
         public static void DestroyChilds(this Transform transform)
         {
-            int n = 100000;
+            int n = transform.childCount;
             while (transform.childCount > 0)
             {
                 Object.DestroyImmediate(transform.GetChild(0).gameObject);
-                n++;
-                if (n == 0)
+                n--;
+                if (n == -1)
                 {
                     Debug.LogError("Infinity loop");
                     break;

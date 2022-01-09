@@ -77,16 +77,16 @@ namespace Geo.Data
 		[Serializable]
 		public class ContourToTxtConverterPreferences2
 		{
-			public int          decimalSeparator;
-			public bool         height;
+			public string       decimalSeparator;
+			public string       height;
 			public string       separator;
 			public string       pointIndexFormat;
 			public List<string> userSeparators;
 
 			public ContourToTxtConverterPreferences2()
 			{
-				decimalSeparator = 0;
-				height           = false;
+				decimalSeparator = ".";
+				height           = "";
 				separator        = ", ";
 				pointIndexFormat = "pt(i)";
 				userSeparators   = new List<string>();

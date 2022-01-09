@@ -7,9 +7,9 @@ namespace Geo.KptData.Converters
 	{
 		string separator;
 		string pointIndexFormat;
-		bool   height;
+		string height;
 
-		public ContourToTxtConverter2(string decimalSeparator, string separator, string pointIndexFormat, bool height) : base(decimalSeparator)
+		public ContourToTxtConverter2(string decimalSeparator, string separator, string pointIndexFormat, string height) : base(decimalSeparator)
 		{
 			Assert.IsFalse(string.IsNullOrEmpty(separator));
 
@@ -28,8 +28,8 @@ namespace Geo.KptData.Converters
 			formatPaths.Add("(x)");
 			formatPaths.Add("(y)");
 
-			if (height)
-				formatPaths.Add("0");
+			if (!string.IsNullOrEmpty(height))
+				formatPaths.Add(height);
 
 			return string.Join(separator, formatPaths);
 		}

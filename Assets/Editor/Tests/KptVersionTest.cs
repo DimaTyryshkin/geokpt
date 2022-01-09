@@ -184,7 +184,7 @@ namespace Tests
 			TestTxtConverter(referenceTxt, converter1, parcel);
 
 			string                 indexFormat = "pt(i)";
-			ContourToTxtConverter2 converter2  = new ContourToTxtConverter2(".", ",", indexFormat, false);
+			ContourToTxtConverter2 converter2  = new ContourToTxtConverter2(".", ",", indexFormat, "");
 			TestTxtConverter(referenceTxt, converter2, parcel);
 		}
 

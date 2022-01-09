@@ -6,13 +6,12 @@ namespace Geo.KptData.Converters
 	public struct SeparatorInfo
 	{
 		public string separator;
-		public string description;
+		public string label;
 		
-		public SeparatorInfo(string separator, string description)
+		public SeparatorInfo(string separator, string label)
 		{
 			this.separator   = separator;
-			this.description = description;
-		}
-		
+			this.label = label;
+		}	
 	}
 }

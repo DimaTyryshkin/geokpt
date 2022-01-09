@@ -19,8 +19,8 @@
         ]
     },
     "contourToTxtConverterPreferences2": {
-        "decimalSeparator": 0,
-        "height": false,
+        "decimalSeparator": "0",
+        "height": "false",
         "separator": ", ",
         "pointIndexFormat": "pt(i)",
         "userSeparators": []

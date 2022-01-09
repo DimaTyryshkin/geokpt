@@ -21,6 +21,9 @@ namespace Geo
 		PreferencesPresenter preferencesPresenter;
 		
 		[SerializeField, IsntNull]
+		FormatPreferences2Presenter formatPreferences2Presenter;
+		
+		[SerializeField, IsntNull]
 		OverlayPanel overlayPanel;
 		
 		[SerializeField, IsntNull]
@@ -57,6 +60,9 @@ namespace Geo
 				
 			documentPresenter.Init(fileBrowser, appAnalytics, contourToTxtConverterFactory);
 			preferencesPresenter.Init(accountData.contourToTxtConverterPreferences, config.defaultContourToTxtFormats, storage);
+
+			CoordinateFormats coordinateFormats = new CoordinateFormats(config.coordinateFormats2Config, accountData.contourToTxtConverterPreferences2);
+			formatPreferences2Presenter.Init(contourToTxtConverterFactory, coordinateFormats, accountData.contourToTxtConverterPreferences2, storage);
 
 			navigationMenu.clickResent += ShowRecent;
 			navigationMenu.clickDocument += ShowDocument;
@@ -157,14 +163,16 @@ namespace Geo
 		{
 			HideAll();
 			
-			preferencesPresenter.Show();
+			//preferencesPresenter.Show();
+			formatPreferences2Presenter.Show();
 			navigationMenu.Draw(NavigationMenu.State.Settings);
 		} 
 		
 		void HideAll()
 		{
 			recentFilesPopup.Close();
-			preferencesPresenter.Close();
+			//preferencesPresenter.Close();
+			formatPreferences2Presenter.Close();
 			documentPresenter.Sleep();
 		}
 		

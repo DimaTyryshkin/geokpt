@@ -19,11 +19,14 @@
         ]
     },
     "contourToTxtConverterPreferences2": {
-        "decimalSeparator": 0,
-        "height": false,
+        "decimalSeparator": ".",
+        "height": "0",
         "separator": ", ",
         "pointIndexFormat": "pt(i)",
-        "userSeparators": []
+        "userSeparators": [
+            ":",
+            "--"
+        ]
     },
     "appAnalytics": {
         "userSegment": 0,

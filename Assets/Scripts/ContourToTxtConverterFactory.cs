@@ -10,10 +10,7 @@ namespace Geo
 		readonly AccountData.ContourToTxtConverterPreferences  preferences;
 		readonly AccountData.ContourToTxtConverterPreferences2 preferences2;
 		//readonly CoordinateFormats2Config                       config;
- 
- 
-
-
+   
 		public ContourToTxtConverterFactory(AccountData.ContourToTxtConverterPreferences preferences, AccountData.ContourToTxtConverterPreferences2 preferences2, CoordinateFormats2Config config)
 		{
 			Assert.IsNotNull(preferences);
@@ -29,7 +26,7 @@ namespace Geo
 
 		public ContourToTxtConverterBase Creat()
 		{
-			var converter = new ContourToTxtConverter2(DecimalSeparatorsList.GetDecimalSeparator(preferences2.decimalSeparator), preferences2.separator, preferences2.pointIndexFormat, preferences2.height);
+			var converter = new ContourToTxtConverter2(preferences2.decimalSeparator, preferences2.separator, preferences2.pointIndexFormat, preferences2.height);
 			return converter;
 		}
 	}

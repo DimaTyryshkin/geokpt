@@ -33,7 +33,7 @@ namespace Tests
 		public void ContourToTxtConverter2_1()
 		{
 			string                 indexFormat = "pt(i)";
-			ContourToTxtConverter2 converter2  = new ContourToTxtConverter2(".", ",", indexFormat, false);
+			ContourToTxtConverter2 converter2  = new ContourToTxtConverter2(".", ",", indexFormat, "");
 			Point                  p           = new Point("9.9", "1.1"); 
 			string                 text        = converter2.PointToString(5, p);
 			
@@ -45,7 +45,7 @@ namespace Tests
 		public void ContourToTxtConverter2_2()
 		{
 			string                 indexFormat = "";
-			ContourToTxtConverter2 converter2  = new ContourToTxtConverter2(",", " ", indexFormat, true);
+			ContourToTxtConverter2 converter2  = new ContourToTxtConverter2(",", " ", indexFormat, "0");
 			Point                  p           = new Point("9.9", "1.1"); 
 			string                 text        = converter2.PointToString(5, p);
 			

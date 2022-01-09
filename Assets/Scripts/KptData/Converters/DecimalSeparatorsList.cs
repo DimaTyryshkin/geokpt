@@ -21,9 +21,15 @@ namespace Geo.KptData.Converters
 		{
 			return GetDecimalSeparatorSafe(decimalSeparator).separator;
 		}
-		public static string GetDecimalSeparatorDescription(int decimalSeparator)
+		public static string GetDecimalSeparatorDescription(string decimalSeparator)
 		{
-			return GetDecimalSeparatorSafe(decimalSeparator).description;
+			foreach (SeparatorInfo separatorInfo in decimals)
+			{
+				if (decimalSeparator == separatorInfo.separator)
+					return separatorInfo.label;
+			}
+
+			return $"'{decimalSeparator}'";
 		}	
 		
 		static SeparatorInfo GetDecimalSeparatorSafe(int decimalSeparator)
