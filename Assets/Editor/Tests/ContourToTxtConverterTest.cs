@@ -38,6 +38,7 @@ namespace Tests
 			string                 text        = converter2.PointToString(5, p);
 			
 			Assert.AreEqual("pt5,9.9,1.1",text); 
+			Assert.AreEqual("pt(i),(x),(y)",converter2.GetFormat()); 
 		}
 		
 		[Test]
@@ -49,6 +50,7 @@ namespace Tests
 			string                 text        = converter2.PointToString(5, p);
 			
 			Assert.AreEqual("9,9 1,1 0",text); 
+			Assert.AreEqual("(x) (y) 0",converter2.GetFormat()); 
 		}
 	}
 }
