@@ -50,6 +50,8 @@ namespace Geo
 
 		void Start()
 		{
+			yandexAppMetrica.Init();
+			
 #if !UNITY_EDITOR
 			cleanRun      = false;
 			skipTutorials = false;
@@ -116,8 +118,7 @@ namespace Geo
 		}
 
 		void InitApp()
-		{ 
-			yandexAppMetrica.Init();
+		{  
 			popupsRoot.Init();
 			
 			var                appAnalytics = new AppAnalytics(data.appAnalytics);

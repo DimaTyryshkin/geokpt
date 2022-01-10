@@ -12,25 +12,35 @@ namespace Geo.UI
 		FormatPreferences2Popup formatPreferences2Popup;
 
 		[SerializeField, IsntNull]
-		SelectorFormatPartPopup  selectorFormatPartPopup;
+		SelectorFormatPartPopup selectorFormatPartPopup;
 
-		IStorage storage;
-		  
+		[SerializeField, IsntNull]
+		AddUserFormatPartPopup addUserFormatPartPopup;
+
+		[SerializeField, IsntNull]
+		OverlayPanel overlayPanel;
+
+
+		IStorage   storage;
+		FormatPart formatPart;
+
 		public event UnityAction cancel;
-		
+
 		void Start()
 		{
 			formatPreferences2Popup.FormatPartClick += OnFormatPartClick;
 			formatPreferences2Popup.cancel          += OnFormatPreferences2PopupCancel;
-			
-			selectorFormatPartPopup.cancel          += OnSelectorFormatPartPopupCancel;
+
+			selectorFormatPartPopup.cancel += OnSelectorFormatPartPopupCancel;
+			addUserFormatPartPopup.save    += OnSaveNewUserPartValue;
+			addUserFormatPartPopup.cancel  += OnAddUserFormatPartPopupCancel;
 		}
-	 
+
 		public void Init(
-			ContourToTxtConverterFactory converterFactory,
-			CoordinateFormats formats, 
-			AccountData.ContourToTxtConverterPreferences2 preferences2, 
-			IStorage storage)
+			ContourToTxtConverterFactory                  converterFactory,
+			CoordinateFormats                             formats,
+			AccountData.ContourToTxtConverterPreferences2 preferences2,
+			IStorage                                      storage)
 		{
 			Assert.IsNotNull(converterFactory);
 			Assert.IsNotNull(formats);
@@ -44,6 +54,36 @@ namespace Geo.UI
 		void ShowFormatPopup()
 		{
 			formatPreferences2Popup.Show();
+		}
+
+		void ShowAddUserFormatPartPopup(FormatPart formatPart)
+		{
+			Assert.IsNotNull(formatPart);
+			this.formatPart = formatPart;
+
+			addUserFormatPartPopup.Show(formatPart.Header);
+		}
+
+		void OnAddUserFormatPartPopupCancel()
+		{
+			addUserFormatPartPopup.Close();
+			OnFormatPartClick(formatPart);
+		}
+
+		void OnSaveNewUserPartValue(string userFormatPartValue)
+		{
+			bool success = formatPart.AddUserValue(userFormatPartValue);
+			if (success)
+			{
+				addUserFormatPartPopup.Close();
+				formatPart.Value = userFormatPartValue;
+				storage.Save();
+				ShowFormatPopup();
+			}
+			else
+			{
+				overlayPanel.Show("Не сохранено");
+			}
 		}
 
 		void OnFormatPreferences2PopupCancel()
@@ -61,19 +101,18 @@ namespace Geo.UI
 		void OnFormatPartClick(FormatPart part)
 		{
 			formatPreferences2Popup.Close();
-			
-			selectorFormatPartPopup.Show(part.Header, part, (value) => 
-			{ 
+
+			selectorFormatPartPopup.Show(part.Header, part, (value) =>
+			{
 				part.Value = value;
 				storage.Save();
-				
+
 				selectorFormatPartPopup.Close();
-				ShowFormatPopup(); 
-			}, () => 
+				ShowFormatPopup();
+			}, () =>
 			{
 				selectorFormatPartPopup.Close();
-				
-				//TODO Показать менюшку для добавления новых элементов	
+				ShowAddUserFormatPartPopup(part);
 			});
 		}
 

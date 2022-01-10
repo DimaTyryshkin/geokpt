@@ -60,15 +60,22 @@ namespace Geo
             {
                 DisplayAllKeys();
 
-                MinAndroidVersion   = new Version(GetString("min_android_version"));
-                MaxAndroidVersion   = new Version(GetString("max_android_version"));
-                GooglePlayMarketUrl = GetString("google_play_market_url");
-                GooglePlayUrl       = GetString("google_play_url");
-                NewVersionInfo      = GetString("new_version_info");
+                try
+                {
+                    MinAndroidVersion   = new Version(GetString("min_android_version"));
+                    MaxAndroidVersion   = new Version(GetString("max_android_version"));
+                    GooglePlayMarketUrl = GetString("google_play_market_url");
+                    GooglePlayUrl       = GetString("google_play_url");
+                    NewVersionInfo      = GetString("new_version_info");
 
-                Config = JsonUtility.FromJson<GeoConfig>(GetString("geo_config"));
-                if (Config == null)
-                    Config = new GeoConfig();
+                    Config = JsonUtility.FromJson<GeoConfig>(GetString("geo_config"));
+                    if (Config == null)
+                        Config = new GeoConfig();
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError(e);
+                }
             }
 
             fetchComplete?.Invoke();

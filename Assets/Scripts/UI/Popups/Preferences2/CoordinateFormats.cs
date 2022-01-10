@@ -45,6 +45,9 @@ namespace Geo.UI
 			if (!CanAddUserValues)
 				throw new NotSupportedException();
 
+			if (string.IsNullOrEmpty(value))
+				return false;
+
 			if (GetAvailableValues().Contains(value))
 				return false;
 

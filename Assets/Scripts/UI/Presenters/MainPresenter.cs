@@ -81,6 +81,7 @@ namespace Geo
 			};
 
 			//settingsPopup.cancel += ShowRecent;
+			formatPreferences2Presenter.cancel += ShowRecent;
 			documentPresenter.cancel += ShowRecent;
 			documentPresenter.successExport += storage.Save;
 			documentPresenter.exceptionOnLoading += OnFileLoadFail;
