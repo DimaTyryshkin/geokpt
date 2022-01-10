@@ -65,32 +65,43 @@ namespace Geo.KptData.KptReaders
 			else if (file.Extension == ".zip")
 			{
 				using (FileStream fs = file.OpenRead())
-				using (ZipArchive zip = new ZipArchive(fs, ZipArchiveMode.Read)) 
+				using (ZipArchive zip = new ZipArchive(fs, ZipArchiveMode.Read))
 				{
-					foreach (var entry in zip.Entries)
-					{
-						//Debug.Log(entry.FullName);
-						if (Path.GetExtension(entry.FullName) == ".xml")
-						{
-							using (StreamReader sr = new StreamReader(entry.Open()))
-							{
-								string xml = sr.ReadToEnd();
-								if (SaveUnzippedFile)
-								{
-									string fullName = file.Directory.FullName + "/" + entry.FullName;
-									File.WriteAllText(fullName, TryFormatXml(xml));
-								}
-
-								loadParcels(new StringReader(xml), entry.FullName);
-							}
-						}
-					}
+					OpenZipRecursively(zip, loadParcels);
 				}
 			}
 			else
 			{
 				var e = new NotSupportedException($"File '{file.Name}' with Extension '{file.Extension}' not supported");
 				exceptionOnLoading?.Invoke(e);
+			}
+		}
+
+		void OpenZipRecursively(ZipArchive zip, UnityAction<TextReader, string> loadParcels)
+		{ 
+			foreach (var entry in zip.Entries)
+			{
+				if (Path.GetExtension(entry.FullName) == ".xml")
+				{
+					using (StreamReader sr = new StreamReader(entry.Open()))
+					{
+						string xml = sr.ReadToEnd();
+						if (SaveUnzippedFile)
+						{
+							string fullName = file.Directory.FullName + "/" + entry.FullName;
+							File.WriteAllText(fullName, TryFormatXml(xml));
+						}
+
+						loadParcels(new StringReader(xml), entry.FullName);
+					}
+				}
+				else if (Path.GetExtension(entry.FullName) == ".zip")
+				{ 
+					using (var nestedZip = entry.Open())
+					{
+						OpenZipRecursively(new ZipArchive(nestedZip, ZipArchiveMode.Read), loadParcels);
+					}
+				}
 			}
 		}
 
