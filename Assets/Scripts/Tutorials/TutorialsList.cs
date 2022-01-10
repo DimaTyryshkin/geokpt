@@ -112,7 +112,7 @@ namespace Geo.Tutorials
 			
 			//Показываем кнопку сохранить
 			RectTransform buttonRect = saveContourPopup.SaveToFileButton.GetComponent<RectTransform>();
-			tutorialGui.ShowTextAndArrowFromTop(0, "Можешь сохраним координаты в txt файл.", buttonRect);
+			tutorialGui.ShowTextAndArrowFromTop(0, "Можешь сохранить координаты в txt файл.", buttonRect);
 			yield return tutorialGui.SetAlpha(0, 1);
 			yield return tutorialGui.WaitForClick();
 			
