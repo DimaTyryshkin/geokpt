@@ -41,9 +41,20 @@ namespace Geo
 		
 		[SerializeField]
 		bool cleanRun;
+
 		
 		[SerializeField]
 		bool skipTutorials;
+		
+		
+#if UNITY_EDITOR
+		[Header("UpdateTest")]
+		[SerializeField]
+		bool testUpdateText;
+
+		[SerializeField]
+		TextAsset updateText;
+#endif
 		
 		UnityRemoteConfigIntegration remoteConfig;
 		AccountDataStorage           storage;
@@ -97,13 +108,20 @@ namespace Geo
 
 		void UpdatePopup()
 		{
+			
 			Version appVersion = new Version(Application.version);
 			updateAppPresenter.skip += InitApp;
 
 			string url = remoteConfig.GooglePlayMarketUrl;
 
 #if UNITY_EDITOR
-				url = remoteConfig.GooglePlayUrl;
+			url = remoteConfig.GooglePlayUrl;
+
+			if (testUpdateText)
+			{
+				updateAppPresenter.Show(false, new Version(9999,0,0), updateText.text.Replace(Environment.NewLine, ""), url);
+				return;
+			}
 #endif
 			if (appVersion < remoteConfig.MinAndroidVersion)
 			{
