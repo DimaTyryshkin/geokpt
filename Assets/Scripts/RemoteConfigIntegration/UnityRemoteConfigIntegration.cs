@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using Unity.RemoteConfig;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -7,8 +7,21 @@ namespace Geo
 {
     public class UnityRemoteConfigIntegration  
     {
-        struct userAttributes{}
-        struct appAttributes{}
+        public struct UserAttributes 
+        {
+        }
+
+        public struct AppAttributes 
+        { 
+            public string platform;
+            public string appVersion;
+
+            public AppAttributes(string platform, string appVersion)
+            {
+                this.platform   = platform;
+                this.appVersion = appVersion;
+            }
+        }
         
         string log = "";
 
@@ -33,11 +46,11 @@ namespace Geo
 
         public void DisplayAllKeys()
         {
-            string allKeys = "Current Keys:" + Environment.NewLine;
-            var keys = RemoteSettings.GetKeys();
+            var keys = ConfigManager.appConfig.GetKeys();
+            string allKeys = $"Current Keys (cunt={keys.Length}):" + Environment.NewLine;
             foreach (string key in keys)
-            {
-                string value = RemoteSettings.GetString(key);
+            { 
+                string value = ConfigManager.appConfig.GetString(key);
                 allKeys += $"    {key}={value}" + Environment.NewLine;
             }
 
@@ -46,36 +59,50 @@ namespace Geo
 
         public void FetchDataAsync()
         {
-            //-1 Services available
-            RemoteSettings.Completed += OnProcessResponse;
-            RemoteSettings.ForceUpdate();
+            ConfigManager.FetchCompleted += OnProcessResponse;
+
+            AppAttributes appAttributes;
+            #if PLATFORM_ANDROID
+            appAttributes = new AppAttributes("android", Application.version);
+            #endif
             
-            //-2 Services no available
-            //OnProcessResponse(false, false, 0);
+            ConfigManager.FetchConfigs<UserAttributes, AppAttributes>(new UserAttributes(), appAttributes);
         }
 
-        void OnProcessResponse(bool wasUpdatedFromServer, bool settingsChanged, int serverResponse)
+        void OnProcessResponse(ConfigResponse configResponse)
         {
-            if (serverResponse == 200)
+            try
             {
-                DisplayAllKeys();
-
-                try
+                if (configResponse.status == ConfigRequestStatus.Success)
                 {
-                    MinAndroidVersion   = new Version(GetString("min_android_version"));
-                    MaxAndroidVersion   = new Version(GetString("max_android_version"));
-                    GooglePlayMarketUrl = GetString("google_play_market_url");
-                    GooglePlayUrl       = GetString("google_play_url");
-                    NewVersionInfo      = GetString("new_version_info");
+                    DisplayAllKeys();
 
-                    Config = JsonUtility.FromJson<GeoConfig>(GetString("geo_config"));
-                    if (Config == null)
-                        Config = new GeoConfig();
+                    switch (configResponse.requestOrigin)
+                    {
+                        case ConfigOrigin.Default:
+                            break;
+                        case ConfigOrigin.Cached:
+                        case ConfigOrigin.Remote:
+                            Debug.Log("assignmentId="+ConfigManager.appConfig.assignmentId);
+                            Debug.Log("environmentId="+ConfigManager.appConfig.environmentId);
+                            
+                            MinAndroidVersion   = new Version(ConfigManager.appConfig.GetString("min_android_version"));
+                            MaxAndroidVersion   = new Version(ConfigManager.appConfig.GetString("max_android_version"));
+                            GooglePlayMarketUrl = ConfigManager.appConfig.GetString("google_play_market_url");
+                            GooglePlayUrl       = ConfigManager.appConfig.GetString("google_play_url");
+                            NewVersionInfo      = ConfigManager.appConfig.GetString("new_version_info");
+
+                            Config = JsonUtility.FromJson<GeoConfig>(ConfigManager.appConfig.GetJson("geo_config"));
+                            if (Config == null)
+                                Config = new GeoConfig();
+
+                            break;
+                    }
                 }
-                catch (Exception e)
-                {
-                    Debug.LogError(e);
-                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e);
             }
 
             fetchComplete?.Invoke();
