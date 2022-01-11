@@ -55,7 +55,23 @@ namespace Geo.UI
 		{
 			formatPreferences2Popup.Show();
 		}
+ 
+		void ShowSelectorFormatPartPopup(FormatPart part)
+		{
+			selectorFormatPartPopup.Show(part.Header, part, (value) =>
+			{
+				part.Value = value;
+				storage.Save();
 
+				selectorFormatPartPopup.Close();
+				ShowFormatPopup();
+			}, () =>
+			{
+				selectorFormatPartPopup.Close();
+				ShowAddUserFormatPartPopup(part);
+			});
+		}
+		
 		void ShowAddUserFormatPartPopup(FormatPart formatPart)
 		{
 			Assert.IsNotNull(formatPart);
@@ -63,7 +79,7 @@ namespace Geo.UI
 
 			addUserFormatPartPopup.Show(formatPart.Header);
 		}
-
+		
 		void OnAddUserFormatPartPopupCancel()
 		{
 			addUserFormatPartPopup.Close();
@@ -101,20 +117,10 @@ namespace Geo.UI
 		void OnFormatPartClick(FormatPart part)
 		{
 			formatPreferences2Popup.Close();
-
-			selectorFormatPartPopup.Show(part.Header, part, (value) =>
-			{
-				part.Value = value;
-				storage.Save();
-
-				selectorFormatPartPopup.Close();
-				ShowFormatPopup();
-			}, () =>
-			{
-				selectorFormatPartPopup.Close();
-				ShowAddUserFormatPartPopup(part);
-			});
+			ShowSelectorFormatPartPopup(part);
 		}
+
+		
 
 		public void Show()
 		{
@@ -125,6 +131,7 @@ namespace Geo.UI
 		{
 			formatPreferences2Popup.Close();
 			selectorFormatPartPopup.Close();
+			addUserFormatPartPopup.Close();
 		}
 	}
 }

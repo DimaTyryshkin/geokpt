@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 using Geo.Data;
@@ -73,6 +74,7 @@ namespace Geo
 			PlayerPrefsWrapper playerPrefs = new PlayerPrefsWrapper();
 			storage = new AccountDataStorage(playerPrefs);
 			data    = storage.GetInst();
+			MigrateAccountData(data);
 			
 			if (isFileSystemTest)
 			{
@@ -115,6 +117,13 @@ namespace Geo
 			{
 				InitApp();
 			}
+		}
+
+		void MigrateAccountData(AccountData data)
+		{ 
+			List<string> completedTutorialsId = data.completedTutorialsId;
+			completedTutorialsId.Remove("SettingsPopupTutorial"); 
+			completedTutorialsId.Remove("UserFormatTutorial"); 
 		}
 
 		void InitApp()

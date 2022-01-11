@@ -21,6 +21,9 @@ namespace Geo.UI
 		[SerializeField, IsntNull]
 		RectTransform root;
 
+		public bool CanAddUserValues { get; private set; }
+		public RectTransform AddButtonRect { get; private set; }
+
 		public event UnityAction cancel;
 
 		public void Show(string header, FormatPart formatPart, UnityAction<string> select, UnityAction addNew)
@@ -41,11 +44,14 @@ namespace Geo.UI
 				newButton.gameObject.SetActive(true);
 			}
 
+			CanAddUserValues = formatPart.CanAddUserValues;
 			if (formatPart.CanAddUserValues)
 			{
 				Button addButton = root.InstantiateAsChild(addNewButton);
 				addButton.onClick.AddListener(addNew);
 				addButton.gameObject .SetActive(true);
+
+				AddButtonRect = addButton.GetComponent<RectTransform>();
 			}
 
 			base.Show();

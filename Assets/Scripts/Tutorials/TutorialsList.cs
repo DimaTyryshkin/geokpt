@@ -72,30 +72,37 @@ namespace Geo.Tutorials
 			facade.EnableInput = true;
 			tutorialGui.Hide();
 		}
-
-		public IEnumerator SettingsPopupTutorial()
+ 
+		public IEnumerator FormatPreferences2PopupTutorial()
 		{
 			facade.EnableInput = false;
-			tutorialGui.ShowText(1, "Настрой формат txt файла под свой GPS приемник.");
+			tutorialGui.ShowText(1, "Настрой формат координат для своего GPS приемника.");
 			yield return tutorialGui.SetAlpha(0, 1);
+			yield return tutorialGui.WaitForClick();
+			
+			tutorialGui.ShowText(1, "Выбери разделители.");
+			yield return tutorialGui.WaitForClick();
+			
+			tutorialGui.ShowText(1, "Можно добавить третью координату - высоту.");
+			yield return tutorialGui.WaitForClick();	
+			
+			tutorialGui.ShowText(1, "Если надо, добавь номер точки.");
 			yield return tutorialGui.WaitForClick();
 
 			yield return tutorialGui.SetAlpha(1, 0);
 			facade.EnableInput = true;
 			tutorialGui.Hide();
 		}
-		
-		public IEnumerator UserFormatTutorial()
+
+		public IEnumerator SelectorFormatPartPopupTutorial(SelectorFormatPartPopup popup)
 		{
 			facade.EnableInput = false;
-			tutorialGui.ShowText(1, "Создай формат координат для своего GPS приемника.");
+			tutorialGui.ShowText(1, "Выбери разделитель.");
 			yield return tutorialGui.SetAlpha(0, 1);
 			yield return tutorialGui.WaitForClick();
-			
-			tutorialGui.ShowText(1, "Чтобы создать формат координат, введи строку формата в поле. Иcпользуй переменные.");
-			yield return tutorialGui.WaitForClick();
-			
-			tutorialGui.ShowText(1, "Вводи имена переменных вместе с фигурными скобками.");
+
+			tutorialGui.ShowTextAndArrowFromDown("Если в списке нет нужного разделителя, добавь новый.", popup.AddButtonRect);
+			yield return tutorialGui.SetAlpha(0, 1);
 			yield return tutorialGui.WaitForClick();
 
 			yield return tutorialGui.SetAlpha(1, 0);
@@ -134,7 +141,7 @@ namespace Geo.Tutorials
 		{
 			facade.EnableInput = false;
 			yield return new WaitForSeconds(0.5f);
-			tutorialGui.ShowText(1, "Теперь можешь открыть файл в приложении, которым ты управляешь приёмником.\nУдачи.");
+			tutorialGui.ShowText(0, "Теперь можешь открыть файл в приложении, которым ты управляешь приёмником.\nУдачи.");
 			yield return tutorialGui.SetAlpha(0, 1); 
 			yield return tutorialGui.WaitForClick();
 			 

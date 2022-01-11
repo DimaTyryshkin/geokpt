@@ -12,13 +12,120 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469c24fdb3bd6431b92cc1465bd9166b, type: 3}
   m_Name: RemoteConfigDataStoreAsset
   m_EditorClassIdentifier: 
-  rsKeyList: []
-  rsLastCachedKeyList: []
-  configId: 
-  currentEnvironmentId: 
-  environments: []
-  rulesList: []
-  lastCachedRulesList: []
-  addedRulesIDs: []
-  updatedRulesIDs: []
-  deletedRulesIDs: []
+  _rsKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"d3fea909-330b-4fa0-97f4-6b1c6b58724f\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"max_android_version\",\r\n      \"type\":
+    \"string\",\r\n      \"value\": \"0.8.2\"\r\n    }\r\n  },\r\n  {\r\n    \"metadata\":
+    {\r\n      \"entityId\": \"bdf3020b-b147-4837-9164-a9c2bfd0405c\"\r\n    },\r\n   
+    \"rs\": {\r\n      \"key\": \"min_android_version\",\r\n      \"type\": \"string\",\r\n     
+    \"value\": \"0.7.0\"\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n     
+    \"entityId\": \"e4a2dcc7-4aa6-478b-b0b3-e326ffd5465b\"\r\n    },\r\n    \"rs\":
+    {\r\n      \"key\": \"google_play_url\",\r\n      \"type\": \"string\",\r\n     
+    \"value\": \"https://play.google.com/store/apps/details?id=com.DefaultCompany.Geo\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"13e9b198-a5a0-4721-b862-847a81a66475\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"google_play_market_url\",\r\n      \"type\":
+    \"string\",\r\n      \"value\": \"market://details?id=com.DefaultCompany.Geo\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"a8c62ff6-b9ba-4c8b-9a2a-b4308f426702\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"new_version_info\",\r\n      \"type\":
+    \"string\",\r\n      \"value\": \"\u0427\u0442\u043E \u043D\u043E\u0432\u043E\u0433\u043E:
+    <br><br>0.9.2<br>-AppMetrica<br><br>0.8.2<br>-\u0414\u043B\u044F \u0443\u0434\u043E\u0431\u0441\u0442\u0432\u0430
+    \u043E\u0441\u0432\u043E\u0435\u043D\u0438\u044F \u043F\u0440\u0438\u043B\u043E\u0436\u0435\u043D\u0438\u044F,
+    \u0434\u043E\u0431\u0430\u0432\u0438\u043B\u0438 \u043D\u0435\u0441\u043A\u043E\u043B\u044C\u043A\u043E
+    \u041A\u041F\u0422 \u0444\u0430\u043B\u043E\u0432 \u043F\u0440\u044F\u043C\u043E
+    \u0432 \u043F\u0440\u0438\u043B\u043E\u0436\u0435\u043D\u0438\u0435. \u0422\u0435\u043F\u0435\u0440\u044C
+    \u043E\u043D\u0438 \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u044B \u0441\u0440\u0430\u0437\u0443
+    \u043F\u043E\u0441\u043B\u0435 \u0437\u0430\u043F\u0443\u0441\u043A\u0430.<br>
+    -\u041F\u0435\u0440\u0435\u0438\u043C\u0435\u043D\u043E\u0432\u0430\u043B\u0438
+    \u043D\u0435\u043A\u043E\u0442\u043E\u0440\u044B\u0435 \u044D\u043A\u0440\u0430\u043D\u044B
+    \u0438 \u043A\u043D\u043E\u043F\u043A\u0438 <br>-\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u044F
+    \u0433\u043E\u0440\u043E\u0434\u043E\u0432 \u043D\u0435\u043A\u043E\u0442\u043E\u0440\u044B\u0445
+    \u041A\u041F\u0422 \u0432\u0438\u0434\u043D\u043E \u043D\u0430 \u044D\u043A\u0440\u0430\u043D\u0435
+    \\\"\u0414\u043E\u0441\u0442\u0443\u043F\u043D\u044B\u0435 \u041A\u041F\u0422\\\"<br><br>0.7.0<br>-\u0414\u043E\u0431\u0430\u0432\u0438\u043B\u0438
+    \u0430\u043D\u0430\u043B\u0438\u0442\u0438\u043A\u0443, \u0447\u0442\u043E\u0431\u044B
+    \u043B\u0443\u0447\u0448\u0435 \u043F\u043E\u043D\u044F\u0442\u044C, \u0447\u0442\u043E
+    \u043D\u0443\u0436\u043D\u043E \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F\u043C<br>-\u0428\u0440\u0438\u0444\u0442
+    \u0432 \u043D\u0435\u043A\u043E\u0442\u043E\u0440\u044B\u0445 \u043C\u0435\u0441\u0442\u0430\u0445
+    \u0441\u0442\u0430\u043B \u0431\u043E\u043B\u044C\u0448\u0435, \u0447\u0442\u043E\u0431\u044B
+    \u0432\u0430\u043C \u0431\u044B\u043B\u043E \u0443\u0434\u043E\u0431\u043D\u0435\u0435
+    \u0447\u0438\u0442\u0430\u0442\u044C\"\r\n    }\r\n  },\r\n  {\r\n    \"metadata\":
+    {\r\n      \"entityId\": \"8308c6be-8626-4ff1-b2e8-49d4c628fded\"\r\n    },\r\n   
+    \"rs\": {\r\n      \"key\": \"geo_config\",\r\n      \"type\": \"json\",\r\n     
+    \"schemaId\": null,\r\n      \"value\": {\r\n        \"defaultContourToTxtFormats\":
+    [\r\n          \"(x), (y)\",\r\n          \"pt(i), (x), (y)\",\r\n          \"pt(i),
+    (x), (y), 0\"\r\n        ],\r\n        \"coordinateFormats2Config\": {\r\n         
+    \"defaultPointIndexFormats\": [\r\n            {\r\n              \"separator\":
+    \"pt(i)\",\r\n              \"label\": \"pt(i)\"\r\n            },\r\n           
+    {\r\n              \"separator\": \"\",\r\n              \"label\": \"\u043D\u0435
+    \u043F\u043E\u043A\u0430\u0437\u044B\u0432\u0430\u0442\u044C\"\r\n           
+    }\r\n          ],\r\n          \"defaultSeparators\": [\r\n            {\r\n             
+    \"separator\": \",\",\r\n              \"label\": \"',' (\u0437\u0430\u043F\u044F\u0442\u0430\u044F)\"\r\n           
+    },\r\n            {\r\n              \"separator\": \" \",\r\n              \"label\":
+    \"' ' (\u043F\u0440\u043E\u0431\u0435\u043B)\"\r\n            },\r\n           
+    {\r\n              \"separator\": \", \",\r\n              \"label\": \"', '
+    (\u0437\u0430\u043F\u044F\u0442\u0430\u044F \u043F\u0440\u043E\u0431\u0435\u043B)\"\r\n           
+    }\r\n          ],\r\n          \"defaultHeight\": [\r\n            {\r\n             
+    \"separator\": \"0\",\r\n              \"label\": \"0\"\r\n            },\r\n           
+    {\r\n              \"separator\": \"\",\r\n              \"label\": \"\u043D\u0435
+    \u043F\u043E\u043A\u0430\u0437\u044B\u0432\u0430\u0442\u044C\"\r\n           
+    }\r\n          ]\r\n        }\r\n      }\r\n    }\r\n  }\r\n]"
+  _rsLastCachedKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"d3fea909-330b-4fa0-97f4-6b1c6b58724f\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"max_android_version\",\r\n      \"type\":
+    \"string\",\r\n      \"value\": \"0.8.2\"\r\n    }\r\n  },\r\n  {\r\n    \"metadata\":
+    {\r\n      \"entityId\": \"bdf3020b-b147-4837-9164-a9c2bfd0405c\"\r\n    },\r\n   
+    \"rs\": {\r\n      \"key\": \"min_android_version\",\r\n      \"type\": \"string\",\r\n     
+    \"value\": \"0.7.0\"\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n     
+    \"entityId\": \"e4a2dcc7-4aa6-478b-b0b3-e326ffd5465b\"\r\n    },\r\n    \"rs\":
+    {\r\n      \"key\": \"google_play_url\",\r\n      \"type\": \"string\",\r\n     
+    \"value\": \"https://play.google.com/store/apps/details?id=com.DefaultCompany.Geo\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"13e9b198-a5a0-4721-b862-847a81a66475\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"google_play_market_url\",\r\n      \"type\":
+    \"string\",\r\n      \"value\": \"market://details?id=com.DefaultCompany.Geo\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"a8c62ff6-b9ba-4c8b-9a2a-b4308f426702\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"new_version_info\",\r\n      \"type\":
+    \"string\",\r\n      \"value\": \"\u0427\u0442\u043E \u043D\u043E\u0432\u043E\u0433\u043E:
+    <br><br>0.9.2<br>-AppMetrica<br><br>0.8.2<br>-\u0414\u043B\u044F \u0443\u0434\u043E\u0431\u0441\u0442\u0432\u0430
+    \u043E\u0441\u0432\u043E\u0435\u043D\u0438\u044F \u043F\u0440\u0438\u043B\u043E\u0436\u0435\u043D\u0438\u044F,
+    \u0434\u043E\u0431\u0430\u0432\u0438\u043B\u0438 \u043D\u0435\u0441\u043A\u043E\u043B\u044C\u043A\u043E
+    \u041A\u041F\u0422 \u0444\u0430\u043B\u043E\u0432 \u043F\u0440\u044F\u043C\u043E
+    \u0432 \u043F\u0440\u0438\u043B\u043E\u0436\u0435\u043D\u0438\u0435. \u0422\u0435\u043F\u0435\u0440\u044C
+    \u043E\u043D\u0438 \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u044B \u0441\u0440\u0430\u0437\u0443
+    \u043F\u043E\u0441\u043B\u0435 \u0437\u0430\u043F\u0443\u0441\u043A\u0430.<br>
+    -\u041F\u0435\u0440\u0435\u0438\u043C\u0435\u043D\u043E\u0432\u0430\u043B\u0438
+    \u043D\u0435\u043A\u043E\u0442\u043E\u0440\u044B\u0435 \u044D\u043A\u0440\u0430\u043D\u044B
+    \u0438 \u043A\u043D\u043E\u043F\u043A\u0438 <br>-\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u044F
+    \u0433\u043E\u0440\u043E\u0434\u043E\u0432 \u043D\u0435\u043A\u043E\u0442\u043E\u0440\u044B\u0445
+    \u041A\u041F\u0422 \u0432\u0438\u0434\u043D\u043E \u043D\u0430 \u044D\u043A\u0440\u0430\u043D\u0435
+    \\\"\u0414\u043E\u0441\u0442\u0443\u043F\u043D\u044B\u0435 \u041A\u041F\u0422\\\"<br><br>0.7.0<br>-\u0414\u043E\u0431\u0430\u0432\u0438\u043B\u0438
+    \u0430\u043D\u0430\u043B\u0438\u0442\u0438\u043A\u0443, \u0447\u0442\u043E\u0431\u044B
+    \u043B\u0443\u0447\u0448\u0435 \u043F\u043E\u043D\u044F\u0442\u044C, \u0447\u0442\u043E
+    \u043D\u0443\u0436\u043D\u043E \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F\u043C<br>-\u0428\u0440\u0438\u0444\u0442
+    \u0432 \u043D\u0435\u043A\u043E\u0442\u043E\u0440\u044B\u0445 \u043C\u0435\u0441\u0442\u0430\u0445
+    \u0441\u0442\u0430\u043B \u0431\u043E\u043B\u044C\u0448\u0435, \u0447\u0442\u043E\u0431\u044B
+    \u0432\u0430\u043C \u0431\u044B\u043B\u043E \u0443\u0434\u043E\u0431\u043D\u0435\u0435
+    \u0447\u0438\u0442\u0430\u0442\u044C\"\r\n    }\r\n  },\r\n  {\r\n    \"metadata\":
+    {\r\n      \"entityId\": \"8308c6be-8626-4ff1-b2e8-49d4c628fded\"\r\n    },\r\n   
+    \"rs\": {\r\n      \"key\": \"geo_config\",\r\n      \"type\": \"json\",\r\n     
+    \"schemaId\": null,\r\n      \"value\": {\r\n        \"defaultContourToTxtFormats\":
+    [\r\n          \"(x), (y)\",\r\n          \"pt(i), (x), (y)\",\r\n          \"pt(i),
+    (x), (y), 0\"\r\n        ],\r\n        \"coordinateFormats2Config\": {\r\n         
+    \"defaultPointIndexFormats\": [\r\n            {\r\n              \"separator\":
+    \"pt(i)\",\r\n              \"label\": \"pt(i)\"\r\n            },\r\n           
+    {\r\n              \"separator\": \"\",\r\n              \"label\": \"\u043D\u0435
+    \u043F\u043E\u043A\u0430\u0437\u044B\u0432\u0430\u0442\u044C\"\r\n           
+    }\r\n          ],\r\n          \"defaultSeparators\": [\r\n            {\r\n             
+    \"separator\": \",\",\r\n              \"label\": \"',' (\u0437\u0430\u043F\u044F\u0442\u0430\u044F)\"\r\n           
+    },\r\n            {\r\n              \"separator\": \" \",\r\n              \"label\":
+    \"' ' (\u043F\u0440\u043E\u0431\u0435\u043B)\"\r\n            },\r\n           
+    {\r\n              \"separator\": \", \",\r\n              \"label\": \"', '
+    (\u0437\u0430\u043F\u044F\u0442\u0430\u044F \u043F\u0440\u043E\u0431\u0435\u043B)\"\r\n           
+    }\r\n          ],\r\n          \"defaultHeight\": [\r\n            {\r\n             
+    \"separator\": \"0\",\r\n              \"label\": \"0\"\r\n            },\r\n           
+    {\r\n              \"separator\": \"\",\r\n              \"label\": \"\u043D\u0435
+    \u043F\u043E\u043A\u0430\u0437\u044B\u0432\u0430\u0442\u044C\"\r\n           
+    }\r\n          ]\r\n        }\r\n      }\r\n    }\r\n  }\r\n]"
+  _environments: "[\r\n  {\r\n    \"projectId\": \"c872d3d4-20af-46d7-a1b9-03fe4edc1235\",\r\n   
+    \"name\": \"production\",\r\n    \"id\": \"aca30c25-e537-49aa-b8f9-62a550a910a2\",\r\n   
+    \"isDefault\": true,\r\n    \"createdAt\": \"2021-08-15T14:20:50Z\",\r\n    \"updatedAt\":
+    \"2021-08-15T14:20:50Z\"\r\n  },\r\n  {\r\n    \"projectId\": \"c872d3d4-20af-46d7-a1b9-03fe4edc1235\",\r\n   
+    \"name\": \"test\",\r\n    \"id\": \"5959ca37-79fe-49df-94ec-6db6f76f235b\",\r\n   
+    \"isDefault\": false,\r\n    \"createdAt\": \"2022-01-11T15:45:47Z\",\r\n   
+    \"updatedAt\": \"2022-01-11T15:45:47Z\"\r\n  }\r\n]"

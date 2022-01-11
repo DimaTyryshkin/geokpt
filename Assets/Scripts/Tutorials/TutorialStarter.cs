@@ -58,15 +58,16 @@ namespace Geo.Tutorials
 				if (saveContourPopup.PointCount > 0)
 					TryCompleteTutorial(tutorialsList.SaveContourPopupTutorial(saveContourPopup), "SaveContourPopupTutorial");
 			}
-
-			if (p is SettingsPopup)
+ 
+			if (p is FormatPreferences2Popup)
 			{
-				TryCompleteTutorial(tutorialsList.SettingsPopupTutorial(), "SettingsPopupTutorial");
+				TryCompleteTutorial(tutorialsList.FormatPreferences2PopupTutorial(), "FormatPreferences2PopupTutorial");
 			}
-			
-			if (p is UserFormatPopup)
+
+			if (p is SelectorFormatPartPopup selectorFormatPartPopup)
 			{
-				TryCompleteTutorial(tutorialsList.UserFormatTutorial(), "UserFormatTutorial");
+				if (selectorFormatPartPopup.CanAddUserValues)
+					TryCompleteTutorial(tutorialsList.SelectorFormatPartPopupTutorial(selectorFormatPartPopup), "SelectorFormatPartPopupTutorial");
 			}
 		}
  

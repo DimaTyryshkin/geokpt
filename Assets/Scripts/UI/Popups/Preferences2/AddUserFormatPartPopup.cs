@@ -22,7 +22,7 @@ namespace Geo.UI
 		
 		[SerializeField, IsntNull]
 		Button cancelButton;
-
+  
 		public event UnityAction<string> save;
 		public event UnityAction         cancel;
 
