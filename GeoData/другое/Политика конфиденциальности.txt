@@ -19,7 +19,7 @@ Link to the privacy policy of third-party service providers used by the app
 *   [Google Play Services](https://policies.google.com/privacy)
 *   [Google Analytics for Firebase](https://firebase.google.com/policies/analytics)
 *   [Firebase Crashlytics](https://firebase.google.com/support/privacy/)
-*   [Unity](https://unity3d.com/legal/privacy-policyы)
+*   [Unity](https://unity3d.com/legal/privacy-policy)
 *   [AppMetrica](https://yandex.ru/legal/confidential/)
 
 

@@ -7,7 +7,8 @@ namespace Geo
 	{
 		public string[] defaultContourToTxtFormats;
 
-		public CoordinateFormats2Config coordinateFormats2Config; 
+		public CoordinateFormats2Config coordinateFormats2Config;
+		public NotificationsConfig      notificationsConfig; 
 		
 		public GeoConfig()
 		{
@@ -19,6 +20,7 @@ namespace Geo
 			};
 
 			coordinateFormats2Config = new CoordinateFormats2Config();
+			notificationsConfig      = new NotificationsConfig();
 		}
 	}
 }

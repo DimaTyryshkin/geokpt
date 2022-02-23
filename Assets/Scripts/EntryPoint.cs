@@ -145,7 +145,7 @@ namespace Geo
 		}
 
 		void InitApp()
-		{  
+		{ 
 			popupsRoot.Init();
 			
 			var                appAnalytics = new AppAnalytics(data.appAnalytics);
@@ -170,6 +170,9 @@ namespace Geo
 			
 			if(!skipTutorials)
 				tutorialStarter.OnShowStartScreen();
+			
+			GeoNotifications notifications = new GeoNotifications();
+			notifications.Send(remoteConfig.Config.notificationsConfig);
 		}
 	}
 }

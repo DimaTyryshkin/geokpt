@@ -8,6 +8,8 @@ namespace Geo
 	{
 		public SeparatorInfo[] defaultPointIndexFormats = new SeparatorInfo[]
 		{
+			new SeparatorInfo("(n)", "n (номер)"),
+			new SeparatorInfo("(i)", "i (индекс)"),
 			new SeparatorInfo("pt(i)", "pt(i)"),
 			new SeparatorInfo("", "не показывать")
 		};
