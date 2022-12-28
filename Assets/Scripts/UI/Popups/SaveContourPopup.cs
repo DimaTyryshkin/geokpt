@@ -31,7 +31,11 @@ namespace Geo.UI
 		[SerializeField, IsntNull]
 		Button baskButton;
 
+		[SerializeField, IsntNull]  
+		Button shareButton;
+
 		public Button SaveToFileButton => saveToFileButton;
+		public Button ShareButton => shareButton;
  
 		ContourToTxtConverterFactory                 converterFactory;
 		IContour                                     contour;
@@ -47,6 +51,7 @@ namespace Geo.UI
 		{
 			saveToFileButton.onClick.AddListener(OnClickSaveToFile);
 			baskButton.onClick.AddListener(OnClickCancel);
+			shareButton.onClick.AddListener(OnClickShareFile);
 		}
 
 		void Update()
@@ -86,6 +91,18 @@ namespace Geo.UI
 			Debug.Log($"save to '{fullName}'");
 
 			saved?.Invoke(fullName, converter);
+		}
+
+		void OnClickShareFile()
+		{
+			NativeShare nativeShare = new NativeShare();
+			nativeShare.Clear();
+			
+			ContourToTxtConverterBase converter = converterFactory.Creat();
+			string fullName = converter.ConvertToTemporaryFile(contour, parcel);
+			
+			Debug.Log($"Share file '{fullName}'");
+			nativeShare.AddFile(fullName).Share();
 		}
 
 		void OnClickCancel()

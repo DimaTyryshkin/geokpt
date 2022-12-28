@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace Geo.KptData.Converters
@@ -23,6 +24,15 @@ namespace Geo.KptData.Converters
 			string fullName = Path.Combine(folderFullName, shotName);
 
 			//TODO проверить что папка не удалена
+			File.WriteAllText(fullName, ConvertToString(contour, parcel));
+			return fullName;
+		}
+
+		public string ConvertToTemporaryFile(IContour contour, IParcel parcel)
+		{
+			string shotName = CadastralNumberToFileName(parcel.GetCadastralNumber());
+			string fullName = Path.Combine(Application.temporaryCachePath, shotName);
+			
 			File.WriteAllText(fullName, ConvertToString(contour, parcel));
 			return fullName;
 		}

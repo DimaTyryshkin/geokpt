@@ -18,6 +18,10 @@ Library
 obj
 Logs
 !.gitignore 
+geokpt.apk
+geokpt_BackUpThisFolder_ButDontShipItWithYourGame
+geokpt_BurstDebugInformation_DoNotShip
+UserSettings
 
  
 /Temp/
