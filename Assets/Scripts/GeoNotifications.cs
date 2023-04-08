@@ -8,7 +8,7 @@ namespace Geo
 	{
 		public void Send(NotificationsConfig config)
 		{
-			Assert.IsNull(config);
+			Assert.IsNotNull(config);
 			NotificationManager.CancelAll();
 			
 			foreach (NotificationsConfig.Notification notification in config.notifications)

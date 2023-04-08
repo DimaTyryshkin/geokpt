@@ -6,99 +6,80 @@
  * https://yandex.com/legal/appmetrica_sdk_agreement/
  */
 
-// Uncomment the following line to disable location tracking
-// #define APP_METRICA_TRACK_LOCATION_DISABLED
-// or just add APP_METRICA_TRACK_LOCATION_DISABLED into
-// Player Settings -> Other Settings -> Scripting Define Symbols
-
 using UnityEngine;
-using System.Collections;
+using UnityEngine.Rendering;
 
 public class AppMetrica : MonoBehaviour
 {
-    public const string VERSION = "3.8.0";
+    public const string VERSION = "5.2.0";
 
-    [SerializeField]
-    private string ApiKey;
+    private static bool s_isInitialized;
 
-    [SerializeField]
-    private bool ExceptionsReporting = true;
+    private static IYandexAppMetrica s_metrica;
+    private static readonly object s_syncRoot = new Object();
 
-    [SerializeField]
-    private uint SessionTimeoutSec = 10;
+    [SerializeField] private string ApiKey;
 
-    [SerializeField]
-    private bool LocationTracking = true;
+    [SerializeField] private bool ExceptionsReporting = true;
 
-    [SerializeField]
-    private bool Logs = true;
+    [SerializeField] private uint SessionTimeoutSec = 10;
 
-    [SerializeField]
-    private bool HandleFirstActivationAsUpdate = false;
+    [SerializeField] private bool LocationTracking = false;
 
-    [SerializeField]
-    private bool StatisticsSending = true;
+    [SerializeField] private bool Logs = false;
 
-    private static bool _isInitialized = false;
-    private bool _actualPauseStatus = false;
+    [SerializeField] private bool HandleFirstActivationAsUpdate = false;
 
-    private static IYandexAppMetrica _metrica = null;
-    private static object syncRoot = new Object ();
+    [SerializeField] private bool StatisticsSending = true;
 
-    public static IYandexAppMetrica Instance => _metrica;
+    private bool _actualPauseStatus;
 
-    void SetupMetrica ()
+    public static IYandexAppMetrica Instance
     {
+        get
+        {
+            if (s_metrica == null)
+            {
+                lock (s_syncRoot)
+                {
 #if UNITY_IPHONE || UNITY_IOS
-        if (_metrica == null && Application.platform == RuntimePlatform.IPhonePlayer) {
-            _metrica = new YandexAppMetricaIOS ();
-        }
-        
+                    if (s_metrica == null && Application.platform == RuntimePlatform.IPhonePlayer)
+                    {
+                        s_metrica = new YandexAppMetricaIOS();
+                    }
 #elif UNITY_ANDROID
-        if (_metrica == null && Application.platform == RuntimePlatform.Android)
-        {
-            _metrica = new YandexAppMetricaAndroid();
-        }
+                    if (s_metrica == null && Application.platform == RuntimePlatform.Android)
+                    {
+                        s_metrica = new YandexAppMetricaAndroid();
+                    }
 #endif
-        if (_metrica == null)
-        {
-            _metrica = new YandexAppMetricaDummy();
-        }
-        
-        var configuration = new YandexAppMetricaConfig (ApiKey) {
-            SessionTimeout = (int)SessionTimeoutSec,
-            Logs = Logs,
-            HandleFirstActivationAsUpdate = HandleFirstActivationAsUpdate,
-            StatisticsSending = StatisticsSending,
-        };
+                    if (s_metrica == null)
+                    {
+                        s_metrica = new YandexAppMetricaDummy();
+                    }
+                }
+            }
 
-#if !APP_METRICA_TRACK_LOCATION_DISABLED
-        configuration.LocationTracking = LocationTracking;
-        if (LocationTracking) {
-            Input.location.Start ();
+            return s_metrica;
         }
-#else
-        configuration.LocationTracking = false;
-#endif
-
-        _metrica.ActivateWithConfiguration (configuration);
     }
 
     public void Init()
     {
-        if (!_isInitialized) {
-            _isInitialized = true;
-            DontDestroyOnLoad (this.gameObject);
-            SetupMetrica ();
-            Instance.ResumeSession ();
-        } else {
-            Destroy (this.gameObject);
+        if (!s_isInitialized)
+        {
+            s_isInitialized = true;
+            DontDestroyOnLoad(gameObject);
+            SetupMetrica();
+            Instance.ResumeSession();
         }
-    }
-
-    private void OnEnable ()
-    {
-        if (ExceptionsReporting) {
+        else
+        {
+            Destroy(gameObject);
+        }
+    
+        if (ExceptionsReporting)
+        {
 #if UNITY_5 || UNITY_5_3_OR_NEWER
             Application.logMessageReceived += HandleLog;
 #else
@@ -107,9 +88,10 @@ public class AppMetrica : MonoBehaviour
         }
     }
 
-    private void OnDisable ()
+    private void OnDisable()
     {
-        if (ExceptionsReporting) {
+        if (ExceptionsReporting)
+        {
 #if UNITY_5 || UNITY_5_3_OR_NEWER
             Application.logMessageReceived -= HandleLog;
 #else
@@ -118,23 +100,41 @@ public class AppMetrica : MonoBehaviour
         }
     }
 
-    private void OnApplicationPause (bool pauseStatus)
+    private void OnApplicationPause(bool pauseStatus)
     {
-        if (_actualPauseStatus != pauseStatus) {
+        if (_actualPauseStatus != pauseStatus)
+        {
             _actualPauseStatus = pauseStatus;
-            if (pauseStatus) {
-                Instance.PauseSession ();
-            } else {
-                Instance.ResumeSession ();
+            if (pauseStatus)
+            {
+                Instance.PauseSession();
+            }
+            else
+            {
+                Instance.ResumeSession();
             }
         }
     }
 
-    private void HandleLog (string condition, string stackTrace, LogType type)
+    private void SetupMetrica()
     {
-        if (type == LogType.Exception) {
-            Instance.ReportError (condition, condition, stackTrace);
-        }
+        YandexAppMetricaConfig configuration = new YandexAppMetricaConfig(ApiKey)
+        {
+            SessionTimeout = (int)SessionTimeoutSec,
+            Logs = Logs,
+            HandleFirstActivationAsUpdate = HandleFirstActivationAsUpdate,
+            StatisticsSending = StatisticsSending,
+            LocationTracking = LocationTracking
+        };
+
+        Instance.ActivateWithConfiguration(configuration);
     }
 
+    private static void HandleLog(string condition, string stackTrace, LogType type)
+    {
+        if (type == LogType.Exception)
+        {
+            Instance.ReportErrorFromLogCallback(condition, stackTrace);
+        }
+    }
 }

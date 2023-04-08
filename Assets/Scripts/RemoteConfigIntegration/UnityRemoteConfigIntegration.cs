@@ -92,7 +92,9 @@ namespace Geo
                             GooglePlayUrl       = ConfigManager.appConfig.GetString("google_play_url");
                             NewVersionInfo      = ConfigManager.appConfig.GetString("new_version_info");
 
-                            Config = JsonUtility.FromJson<GeoConfig>(ConfigManager.appConfig.GetJson("geo_config"));
+                            string json = ConfigManager.appConfig.GetJson("geo_config");
+                            Debug.Log(json);
+                            Config = JsonUtility.FromJson<GeoConfig>(json);
                             if (Config == null)
                                 Config = new GeoConfig();
 
