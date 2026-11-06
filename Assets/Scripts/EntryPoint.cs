@@ -1,118 +1,116 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
-
-using Geo.Data;
+﻿using Geo.Data;
 using Geo.Tutorials;
 using Geo.UI;
 using SiberianWellness.NotNullValidation;
-using UnityEngine.Serialization;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace Geo
 {
-	public class EntryPoint : MonoBehaviour
-	{
-		[SerializeField, IsntNull]
-		MainPresenter mainPresenter;
-		
-		[SerializeField, IsntNull]
-		FileSystemTest fileSystemTest;
+    public class EntryPoint : MonoBehaviour
+    {
+        [SerializeField, IsntNull]
+        MainPresenter mainPresenter;
 
-		[SerializeField, IsntNull]
-		PrivacyPolicyAndTermsConditionsPresenter policyAndTermsConditionsPresenter;
-		
-		[SerializeField, IsntNull]
-		UpdateAppPresenter updateAppPresenter;
+        [SerializeField, IsntNull]
+        FileSystemTest fileSystemTest;
 
-		[SerializeField, IsntNull]
-		TutorialStarter tutorialStarter;
-		
-		[SerializeField, IsntNull]
-		PopupsRoot popupsRoot;
-		
-		[SerializeField, IsntNull]
-		GameObject loadingPanel; 
+        [SerializeField, IsntNull]
+        PrivacyPolicyAndTermsConditionsPresenter policyAndTermsConditionsPresenter;
 
-		[SerializeField, IsntNull]
-		AppMetrica yandexAppMetrica; 
-			
-		[SerializeField]
-		bool isFileSystemTest;
-		
-		[SerializeField]
-		bool cleanRun;
+        [SerializeField, IsntNull]
+        UpdateAppPresenter updateAppPresenter;
 
-		
-		[SerializeField]
-		bool skipTutorials;
-		
-		
+        [SerializeField, IsntNull]
+        TutorialStarter tutorialStarter;
+
+        [SerializeField, IsntNull]
+        PopupsRoot popupsRoot;
+
+        [SerializeField, IsntNull]
+        GameObject loadingPanel;
+
+        [SerializeField, IsntNull]
+        AppMetrica yandexAppMetrica;
+
+        [SerializeField]
+        bool isFileSystemTest;
+
+        [SerializeField]
+        bool cleanRun;
+
+
+        [SerializeField]
+        bool skipTutorials;
+
+
 #if UNITY_EDITOR
-		[Header("UpdateTest")]
-		[SerializeField]
-		bool testUpdateText;
+        [Header("UpdateTest")]
+        [SerializeField]
+        bool testUpdateText;
 
-		[SerializeField]
-		TextAsset updateText;
+        [SerializeField]
+        TextAsset updateText;
 #endif
-		
-		UnityRemoteConfigIntegration remoteConfig;
-		AccountDataStorage           storage;
-		AccountData                  data;
 
-		void Start()
-		{
-			yandexAppMetrica.Init();
-			
+        UnityRemoteConfigIntegration remoteConfig;
+        AccountDataStorage storage;
+        AccountData data;
+
+        void Start()
+        {
+            yandexAppMetrica.Init();
+
 #if !UNITY_EDITOR
 			cleanRun      = false;
 			skipTutorials = false;
 #endif
-			loadingPanel.SetActive(true);
-			if(cleanRun)
-				PlayerPrefs.DeleteAll();
-			
-			Debug.Log("temporaryCachePath=" + Application.temporaryCachePath);
-			Debug.Log("persistentDataPath=" + Application.persistentDataPath);
+            loadingPanel.SetActive(true);
+            if (cleanRun)
+                PlayerPrefs.DeleteAll();
 
-			remoteConfig               =  new UnityRemoteConfigIntegration();
-			remoteConfig.fetchComplete += OnRemoteConfigFetchComplete;
-			remoteConfig.FetchDataAsync();
-		}
+            Debug.Log("temporaryCachePath=" + Application.temporaryCachePath);
+            Debug.Log("persistentDataPath=" + Application.persistentDataPath);
 
-		void OnRemoteConfigFetchComplete()
-		{
-			PlayerPrefsWrapper playerPrefs = new PlayerPrefsWrapper();
-			storage = new AccountDataStorage(playerPrefs);
-			data    = storage.GetInst();
-			MigrateAccountData(data);
-			
-			if (isFileSystemTest)
-			{
-				loadingPanel.SetActive(false);
-				fileSystemTest.Show();
-			}
-			else
-			{
-				PrivacyPolicyAndTermsConditions();
-			}
-		}
+            remoteConfig = new UnityRemoteConfigIntegration();
+            remoteConfig.fetchComplete += OnRemoteConfigFetchComplete;
+            remoteConfig.FetchDataAsync();
+        }
 
-		void PrivacyPolicyAndTermsConditions()
-		{
-			policyAndTermsConditionsPresenter.Init(data.privacyPolicy);
-			//policyAndTermsConditionsPresenter.Assepted += () => storage.Save();
-			policyAndTermsConditionsPresenter.Complete += UpdatePopup;
-			policyAndTermsConditionsPresenter.StartUserAccepting();
-		}
+        void OnRemoteConfigFetchComplete()
+        {
+            PlayerPrefsWrapper playerPrefs = new PlayerPrefsWrapper();
+            storage = new AccountDataStorage(playerPrefs);
+            data = storage.GetInst();
+            MigrateAccountData(data);
 
-		void UpdatePopup()
-		{
-			
+            if (isFileSystemTest)
+            {
+                loadingPanel.SetActive(false);
+                fileSystemTest.Show();
+            }
+            else
+            {
+                PrivacyPolicyAndTermsConditions();
+            }
+        }
+
+        void PrivacyPolicyAndTermsConditions()
+        {
+            policyAndTermsConditionsPresenter.Init(data.privacyPolicy);
+            //policyAndTermsConditionsPresenter.Assepted += () => storage.Save();
+            policyAndTermsConditionsPresenter.Complete += UpdatePopup;
+            policyAndTermsConditionsPresenter.StartUserAccepting();
+        }
+
+        void UpdatePopup()
+        {
+            /*
 			Version appVersion = new Version(Application.version);
 			updateAppPresenter.skip += InitApp;
 
 			string url = remoteConfig.GooglePlayMarketUrl;
+			
 
 #if UNITY_EDITOR
 			url = remoteConfig.GooglePlayUrl;
@@ -135,44 +133,47 @@ namespace Geo
 			{
 				InitApp();
 			}
-		}
+			*/
 
-		void MigrateAccountData(AccountData data)
-		{ 
-			List<string> completedTutorialsId = data.completedTutorialsId;
-			completedTutorialsId.Remove("SettingsPopupTutorial"); 
-			completedTutorialsId.Remove("UserFormatTutorial"); 
-		}
+            InitApp();
+        }
 
-		void InitApp()
-		{ 
-			popupsRoot.Init();
-			
-			var                appAnalytics = new AppAnalytics(data.appAnalytics);
-			appAnalytics.StartApp();
-			
-			IFileSystem fileSystem = new RealFileSystem();
-			var kptFilesCache = new FilesCache(fileSystem, Application.persistentDataPath);
-			
-			if (appAnalytics.SessionNumber == 1)
-			{
-				DefaultKptFiles defaultKptFiles = new DefaultKptFiles();
-				defaultKptFiles.CopyToCache(kptFilesCache);
-			}
-			 
-			if(!skipTutorials)
-				tutorialStarter.Init(storage);
-			
-			mainPresenter.Init(storage, appAnalytics, kptFilesCache, remoteConfig.Config);
-			
-			storage.Save();
-			loadingPanel.SetActive(false);
-			
-			if(!skipTutorials)
-				tutorialStarter.OnShowStartScreen();
-			
-			GeoNotifications notifications = new GeoNotifications();
-			notifications.Send(remoteConfig.Config.notificationsConfig);
-		}
-	}
+        void MigrateAccountData(AccountData data)
+        {
+            List<string> completedTutorialsId = data.completedTutorialsId;
+            completedTutorialsId.Remove("SettingsPopupTutorial");
+            completedTutorialsId.Remove("UserFormatTutorial");
+        }
+
+        void InitApp()
+        {
+            popupsRoot.Init();
+
+            var appAnalytics = new AppAnalytics(data.appAnalytics);
+            appAnalytics.StartApp();
+
+            IFileSystem fileSystem = new RealFileSystem();
+            var kptFilesCache = new FilesCache(fileSystem, Application.persistentDataPath);
+
+            if (appAnalytics.SessionNumber == 1)
+            {
+                DefaultKptFiles defaultKptFiles = new DefaultKptFiles();
+                defaultKptFiles.CopyToCache(kptFilesCache);
+            }
+
+            if (!skipTutorials)
+                tutorialStarter.Init(storage);
+
+            mainPresenter.Init(storage, appAnalytics, kptFilesCache, remoteConfig.Config);
+
+            storage.Save();
+            loadingPanel.SetActive(false);
+
+            if (!skipTutorials)
+                tutorialStarter.OnShowStartScreen();
+
+            //GeoNotifications notifications = new GeoNotifications();
+            //notifications.Send(remoteConfig.Config.notificationsConfig);
+        }
+    }
 }
